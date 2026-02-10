@@ -3,7 +3,7 @@
 
 Alberto -- RKPlane | 
 Gian -- Gibalu | 
-Sergio -- TBD | 
+Sergio -- SergiGnvs | 
 Lucia -- TBD | 
 Luis -- Mewis10 | 
 Hector -- Hesukimo | 
