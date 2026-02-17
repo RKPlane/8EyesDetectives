@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
+using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
@@ -20,6 +22,11 @@ public class Player : MonoBehaviour
     private InputAction m_jumpAction;// Salto
     private Vector2 moveInput;
     private bool jumpPressed;
+    public Vector3 AimDirection { get; private set; }
+
+    //Spider Web
+    Vector3 currentPos;
+    Vector3 targetPos;
 
     //Sprite
     public bool bFaceRight;
@@ -72,6 +79,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         moveInput = m_moveAction.ReadValue<Vector2>();
+        LookAtMouse();
 
     }
 
@@ -81,5 +89,14 @@ public class Player : MonoBehaviour
         sr.flipX = !sr.flipX;
 
         bFaceRight = !bFaceRight;
+    }
+
+    private void LookAtMouse()
+    {
+        Vector2 mousePos = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 dir = (Vector3)(mousePos - (Vector2)transform.position);
+
+        AimDirection = dir.normalized;
+        transform.up = AimDirection;
     }
 }
