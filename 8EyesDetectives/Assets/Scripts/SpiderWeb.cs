@@ -46,9 +46,11 @@ public class SpiderWeb : MonoBehaviour
     {
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         mouseWorldPos.z = 0f;
+        Debug.Log(mouseWorldPos);
 
         Vector3 startPoint = attackPoint.position;
         Vector3 direction = (mouseWorldPos - startPoint).normalized;
+
 
         RaycastHit2D hit = Physics2D.Raycast(startPoint, direction, maxDistance);
 
@@ -61,7 +63,7 @@ public class SpiderWeb : MonoBehaviour
         else
         {
             targetPoint = startPoint + direction * maxDistance;
-        }
+        } 
 
 
         float distance = 0f;
@@ -69,18 +71,20 @@ public class SpiderWeb : MonoBehaviour
         lineRenderer.enabled = true;
         lineRenderer.SetPosition(0, startPoint);
 
-        while (distance < Vector3.Distance(startPoint, targetPoint))
+        //while (distance < Vector3.Distance(startPoint, targetPoint))
+        while (distance < Vector3.Distance(startPoint, mouseWorldPos)) 
         {
             distance += webSpeed * Time.deltaTime;
             Vector3 currentPoint = startPoint + direction * distance;
 
-            lineRenderer.SetPosition(1, currentPoint);
+            //lineRenderer.SetPosition(4, currentPoint);
+            lineRenderer.SetPosition(1, currentPoint); 
 
             yield return null;
         }
 
         // Mantener la telaraña x segundos
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(50f);
 
         lineRenderer.enabled = false;
     }
