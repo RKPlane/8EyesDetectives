@@ -9,12 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 3432c78acb384d24d8b755bd6161c400, type: 3}
   m_Name: Level1Start
   m_EditorClassIdentifier: Assembly-CSharp::DialogueConversation
   lines:
   - characterName: 1
-    text: "Aqu\xED tranquilita, la mantis m\xE1s bonita, andando rapidita por la
-      calle de la abuelita"
+    text: Hola que tal
   - characterName: 0
-    text: Deja el alcohol anda
+    text: Mal
