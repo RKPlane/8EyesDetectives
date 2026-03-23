@@ -8,7 +8,7 @@ public class MantisPlayer : MonoBehaviour
     public float jumpForce = 6f;
     private Rigidbody2D rb;
     public float lerpSpeed = 0.85f;
-    private bool isHolding = false;
+    [SerializeField] private bool isHolding = false;
     private GameObject heldObject = null;
 
     //Ground check
@@ -84,6 +84,8 @@ public class MantisPlayer : MonoBehaviour
     void Update()
     {
         moveInput = m_moveAction.ReadValue<Vector2>();
+
+        SoltarCheck();
     }
 
     void Turn() //testing con el spriterenderer
@@ -98,12 +100,31 @@ public class MantisPlayer : MonoBehaviour
     {
         if (m_pickUpAction.IsPressed())
         {
-            if (collision.gameObject.CompareTag("Carryable") && !isHolding)
+            if (collision.gameObject.CompareTag("Carryable"))
             {
-                isHolding = true;
-                heldObject = collision.gameObject;
-                heldObject.transform.parent = carryCollider.transform;
+                if (!isHolding)
+                {
+                    Debug.Log("held");
+                    isHolding = true;
+                    heldObject = collision.gameObject;
+                    heldObject.transform.parent = carryCollider.transform;
+                    collision.attachedRigidbody.bodyType = RigidbodyType2D.Kinematic;
+                    collision.gameObject.layer = LayerMask.NameToLayer("NoCollision");
+                } 
             }
+        }
+    }
+
+    private void SoltarCheck()
+    {
+        if (m_pickUpAction.IsPressed() && isHolding)
+        {
+            isHolding = false;
+            Debug.Log("unheld");
+            heldObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+            heldObject.gameObject.layer = LayerMask.NameToLayer("Default");
+            heldObject.transform.parent = null;
+            heldObject = null;
         }
     }
 }
