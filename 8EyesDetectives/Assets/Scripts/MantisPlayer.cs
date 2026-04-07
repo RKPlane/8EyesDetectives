@@ -98,7 +98,7 @@ public class MantisPlayer : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (m_pickUpAction.IsPressed())
+        if (m_pickUpAction.WasPressedThisFrame())
         {
             if (collision.gameObject.CompareTag("Carryable"))
             {
@@ -117,7 +117,7 @@ public class MantisPlayer : MonoBehaviour
 
     private void SoltarCheck()
     {
-        if (m_pickUpAction.IsPressed() && isHolding)
+        if (m_pickUpAction.WasPressedThisFrame() && isHolding)
         {
             isHolding = false;
             Debug.Log("unheld");
