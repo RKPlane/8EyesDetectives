@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
 
     [Header("Input Settings")]
     public InputActionAsset inputActions; // Da acceso a todas las acciones de input definidas en el Input Action Asset
-    private InputAction m_moveAction;// Se utiliza para almacenar la acci�n que queremos utilizar
+    private InputAction m_moveAction;// Se utiliza para almacenar la accion que queremos utilizar
     private InputAction m_jumpAction;// Salto
     private Vector2 moveInput;
     private bool jumpPressed;
