@@ -27,6 +27,6 @@ public class WebRenderer : MonoBehaviour
             line.SetPosition(i, rope.Segments[i].position);
     }
 
-    public void Enable() { }             // visibility is driven by rope state in LateUpdate
+    public void Enable() { }             // visibility late update
     public void Disable() => line.enabled = false;
 }

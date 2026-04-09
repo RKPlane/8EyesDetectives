@@ -43,12 +43,12 @@ public class WebRope : MonoBehaviour
             segments.Add(go.GetComponent<Rigidbody2D>());
         }
 
-        // Pin first segment to world anchor point
+        //Primer segmento se ancla al mundo
         HingeJoint2D anchor = segments[0].gameObject.AddComponent<HingeJoint2D>();
         anchor.autoConfigureConnectedAnchor = false;
         anchor.connectedAnchor = anchorPoint;
 
-        // Chain segments together
+        //Cadena de segmentos
         for (int i = 1; i < segmentCount; i++)
         {
             HingeJoint2D joint = segments[i].gameObject.AddComponent<HingeJoint2D>();
@@ -56,7 +56,7 @@ public class WebRope : MonoBehaviour
             joint.autoConfigureConnectedAnchor = true;
         }
 
-        // Attach player to last segment
+        //El ultimo segmento va al Player
         playerJoint = player.gameObject.AddComponent<HingeJoint2D>();
         playerJoint.connectedBody = segments[segmentCount - 1];
         playerJoint.autoConfigureConnectedAnchor = true;
@@ -64,7 +64,7 @@ public class WebRope : MonoBehaviour
         IsPlayerAttached = true;
     }
 
-    // Detach player and pin the free end to the nearest surface within stickRadius
+    //Despega al player y ancla el segmento al radio especificado mas cercano
     public void DetachAndStick(LayerMask grappleLayer, float stickRadius)
     {
         if (!IsBuilt) return;
@@ -91,10 +91,10 @@ public class WebRope : MonoBehaviour
             }
             else
             {
-                pin.connectedAnchor = pinPoint; // world space when no rigidbody
+                pin.connectedAnchor = pinPoint; // world space SI NO HAY rigidbody
             }
         }
-        // If nothing nearby, the rope just falls and dangles from the anchor
+        // si falla solo se desplega del ancla
     }
 
     public void Clear()
@@ -107,7 +107,7 @@ public class WebRope : MonoBehaviour
         IsPlayerAttached = false;
     }
 
-    // Cut at segmentIndex — segments from that point toward the free end are destroyed
+    // METODO FUTURO
     public void Cut(int segmentIndex)
     {
         if (!IsBuilt || segmentIndex < 0 || segmentIndex >= segments.Count) return;
