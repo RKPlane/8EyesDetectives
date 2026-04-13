@@ -1,35 +1,36 @@
-using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 
 public class Puerta : MonoBehaviour
 {
     [SerializeField] private bool open = false;
-
     private SpriteRenderer sr;
+    private Collider2D col;
     [SerializeField] private Sprite closedDoor;
 
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
+        col = GetComponent<Collider2D>();
     }
 
     public void Open()
     {
-        if (!open) {
+        if (!open)
+        {
+            open = true;
             if (closedDoor != null)
-            {
-               sr.sprite = closedDoor;
-            } else
-            {
+                sr.sprite = closedDoor;
+            else
                 sr.enabled = false;
-            }
 
-            gameObject.layer = LayerMask.NameToLayer("NoCollision");
+            if (col != null) col.enabled = false;
         }
     }
 
     public void Close()
     {
-        // Por implementar
+        open = false;
+        sr.enabled = true;
+        if (col != null) col.enabled = true;
     }
 }

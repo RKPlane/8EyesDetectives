@@ -44,11 +44,11 @@ public class MenuManager : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("Nivel0");
     }
 
     public void ContinueGame()
     {
-		SceneManager.LoadScene("SampleScene");
+		SceneManager.LoadScene("WebTest");
 	}
 }
