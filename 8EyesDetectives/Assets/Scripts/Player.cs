@@ -13,10 +13,13 @@ public class Player : MonoBehaviour
     [SerializeField] private float groundRadius = 0.6f;
     [SerializeField] private LayerMask groundLayer;
 
+    [Header("Web Reference")]
+    public WebController webController;
+
 
     [Header("Input Settings")]
     public InputActionAsset inputActions; // Da acceso a todas las acciones de input definidas en el Input Action Asset
-    private InputAction m_moveAction;// Se utiliza para almacenar la acción que queremos utilizar
+    private InputAction m_moveAction;// Se utiliza para almacenar la accion que queremos utilizar
     private InputAction m_jumpAction;// Salto
     private Vector2 moveInput;
     private bool jumpPressed;
@@ -44,7 +47,9 @@ public class Player : MonoBehaviour
 
         //Movement
         float horizontalMovement = moveInput.x;
-        rb.linearVelocity = new Vector2(horizontalMovement * speed, rb.linearVelocity.y);
+        bool isSwinging = webController != null && webController.IsAnyAttached;
+        if (!isSwinging)
+            rb.linearVelocity = new Vector2(horizontalMovement * speed, rb.linearVelocity.y);
         //characterAnimator.SetFloat("MovementSpeed", Mathf.Abs(horizontalMovement));
 
         //SALTO

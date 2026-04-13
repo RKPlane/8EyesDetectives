@@ -4,7 +4,7 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - Carryable
+  - Web
   layers:
   - Default
   - TransparentFX
@@ -12,7 +12,7 @@ TagManager:
   - Ground
   - Water
   - UI
-  - NoCollision
+  - WebLayer
   - 
   - 
   - 
