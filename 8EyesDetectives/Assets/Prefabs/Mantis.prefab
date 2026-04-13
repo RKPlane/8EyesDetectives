@@ -121,10 +121,10 @@ GameObject:
   - component: {fileID: 4293403447503704858}
   - component: {fileID: 8207543558111198589}
   - component: {fileID: 6996764297714688692}
-  - component: {fileID: 2823464622154993424}
+  - component: {fileID: 9021379127118570578}
   m_Layer: 0
   m_Name: Mantis
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -278,7 +278,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 0.9224575}
   m_EdgeRadius: 0
---- !u!114 &2823464622154993424
+--- !u!114 &9021379127118570578
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -287,20 +287,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 5124634474094578137}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3004eff55a5460e47ae6e8bb915bf2a3, type: 3}
+  m_Script: {fileID: 11500000, guid: 41a9a1b75c21d8f489596cacd9cf4f45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MantisPlayer
   speed: 5
   jumpForce: 6
-  lerpSpeed: 0.1
-  groundCheck: {fileID: 531290408285916411}
+  lerpSpeed: 0.85
+  throwForce: 5
+  moveLeftKey: 61
+  moveRightKey: 62
+  jumpKey: 84
+  pickUpKey: 85
+  throwKey: 86
+  isHolding: 0
+  pickUpCollider: {fileID: 2185193737630994197}
   carryCheck: {fileID: 6204755774266737299}
-  groundRadius: 0.2
+  carryCollider: {fileID: 2185193737630994197}
+  groundCheck: {fileID: 531290408285916411}
+  groundRadius: 0.6
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  carryCollider: {fileID: 2185193737630994197}
   bFaceRight: 0
 --- !u!1 &7087169394657271614
 GameObject:
