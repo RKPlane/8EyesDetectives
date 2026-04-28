@@ -52,7 +52,8 @@ public class MantisPlayer : MonoBehaviour
     // ── Internal state ────────────────────────────────────────────────────
     private float moveInput;   // -1, 0, or 1
 
-    // ─────────────────────────────────────────────────────────────────────
+    // ──────── Animator ─────────────────────────────────────────────────────────────
+    public Animator animator;
 
     void Awake()
     {
@@ -105,9 +106,11 @@ public class MantisPlayer : MonoBehaviour
     {
         // ── Ground check ──────────────────────────────────────────────────
         bool isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
+        animator.SetBool("isJumping", !isGrounded);
 
         // ── Horizontal movement ───────────────────────────────────────────
         rb.linearVelocity = new Vector2(moveInput * speed, rb.linearVelocity.y);
+        animator.SetFloat("Speed",moveInput * moveInput);
 
         // ── Jump ──────────────────────────────────────────────────────────
         if (Keyboard.current[jumpKey].isPressed && isGrounded)
