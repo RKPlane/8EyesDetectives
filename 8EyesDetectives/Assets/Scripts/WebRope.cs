@@ -37,6 +37,9 @@ public class WebRope : MonoBehaviour
             GameObject go = Instantiate(segmentPrefab, pos, Quaternion.identity);
             go.layer = LayerMask.NameToLayer("Web");
 
+            WebSegment seg = go.AddComponent<WebSegment>();
+            seg.rope = this;
+
             CircleCollider2D col = go.GetComponent<CircleCollider2D>();
             if (col == null) col = go.AddComponent<CircleCollider2D>();
             col.radius = colliderRadius;
