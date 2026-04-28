@@ -1,15 +1,12 @@
-using UnityEditor.AnimatedValues;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    //Player
     public float speed = 5f;
     public float jumpForce = 6f;
     private Rigidbody2D rb;
 
-    //Ground check
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundRadius = 0.6f;
     [SerializeField] private LayerMask groundLayer;
@@ -17,114 +14,48 @@ public class Player : MonoBehaviour
     [Header("Web Reference")]
     public WebController webController;
 
-    private float moveInput;   // -1, 0, or 1
+    [Header("Input")]
+    public InputActionAsset inputActions;
 
+    private InputAction moveAction;
+    private InputAction jumpAction;
+    private float moveInput;
 
-    [Header("Input Settings")]
-    public InputActionAsset inputActions; // Da acceso a todas las acciones de input definidas en el Input Action Asset
-    private InputAction m_moveAction;// Se utiliza para almacenar la accion que queremos utilizar
-    //private InputAction m_jumpAction;// Salto
-    //private Vector2 moveInput;
-    private bool jumpPressed;
-
-    // ?? Key bindings (reassignable from the Inspector) ????????????????????
-    [Header("Key Bindings")]
-    public Key moveLeftKey = Key.A;
-    public Key moveRightKey = Key.D;
-    public Key jumpKey = Key.W;
-
-    //Sprite
     public bool bFaceRight;
-
-    //Animator
     public Animator animator;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        //m_moveAction = InputSystem.actions.FindAction("Move1");
-        //m_jumpAction = InputSystem.actions.FindAction("Jump");
+        var map = inputActions.FindActionMap("Player");
+        moveAction = map.FindAction("Move");
+        jumpAction = map.FindAction("SpiderJump");
     }
 
-    //Fisicas
-    /*
-    void FixedUpdate()
-    {
-        //Ground Check
-        bool isGrounded = Physics2D.OverlapCircle(
-            groundCheck.position,
-            groundRadius,
-            groundLayer
-        );
-
-        //Movement
-        float horizontalMovement = moveInput.x;
-        bool isSwinging = webController != null && webController.IsAnyAttached;
-        if (!isSwinging)
-            rb.linearVelocity = new Vector2(horizontalMovement * speed, rb.linearVelocity.y);
-        //characterAnimator.SetFloat("MovementSpeed", Mathf.Abs(horizontalMovement));
-
-        //SALTO
-        if (m_jumpAction.IsPressed() && isGrounded)
-        {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-        }
-
-        /* TURN
-         
-         if (horizontalMovement < 0 && bFaceRight ||
-            horizontalMovement > 0 && !bFaceRight)
-        {
-            Turn();
-        }
-    }*/
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Update()
     {
-        var kb = Keyboard.current;
-        moveInput = 0f;
-        if (kb[moveLeftKey].isPressed) moveInput = -1f;
-        if (kb[moveRightKey].isPressed) moveInput = 1f;
+        moveInput = moveAction.ReadValue<Vector2>().x;
     }
 
     void FixedUpdate()
     {
-        var kb = Keyboard.current;
-
-        // ?Ground check 
-        bool isGrounded = Physics2D.OverlapCircle(
-            groundCheck.position,
-            groundRadius,
-            groundLayer
-        );
+        bool isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
         animator.SetBool("isJumping", !isGrounded);
 
-        // ?? Horizontal movement ???????????????????????????????????????????
         bool isSwinging = webController != null && webController.IsAnyAttached;
-        if (!isSwinging) {
+        if (!isSwinging)
+        {
             rb.linearVelocity = new Vector2(moveInput * speed, rb.linearVelocity.y);
-            animator.SetFloat("Speed", moveInput*moveInput);
+            animator.SetFloat("Speed", moveInput * moveInput);
         }
 
-        // Jump
-        if (kb[jumpKey].isPressed && isGrounded)
+        if (jumpAction.IsPressed() && isGrounded)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-        
-            animator.SetBool("isJumping", true); 
+            animator.SetBool("isJumping", true);
         }
 
-
-        //Flip
         if (moveInput > 0) transform.localScale = new Vector3(1, 1, 1);
         else if (moveInput < 0) transform.localScale = new Vector3(-1, 1, 1);
-    }
-
-    void Turn() // kept for reference
-    {
-        SpriteRenderer sr = GetComponent<SpriteRenderer>();
-        sr.flipX = !sr.flipX;
-        bFaceRight = !bFaceRight;
     }
 }

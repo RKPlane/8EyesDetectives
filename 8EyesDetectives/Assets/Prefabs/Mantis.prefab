@@ -239,11 +239,11 @@ MonoBehaviour:
   jumpForce: 6
   lerpSpeed: 0.85
   throwForce: 5
-  moveLeftKey: 61
-  moveRightKey: 62
-  jumpKey: 63
-  pickUpKey: 85
-  throwKey: 86
+  inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  cutRadius: 1.5
+  webLayer:
+    serializedVersion: 2
+    m_Bits: 320
   isHolding: 0
   pickUpCollider: {fileID: 2185193737630994197}
   carryCheck: {fileID: 6204755774266737299}
