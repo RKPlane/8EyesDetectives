@@ -31,7 +31,7 @@ public class MantisPlayer : MonoBehaviour
 
     // ── Ground check ──────────────────────────────────────────────────────
     [SerializeField] private Transform groundCheck;
-    [SerializeField] private float groundRadius = 0.6f;
+    [SerializeField] private Vector2 groundCheckSize = new Vector2(2f, 0.1f);
     [SerializeField] private LayerMask groundLayer;
 
     // ── Sprite ────────────────────────────────────────────────────────────
@@ -51,14 +51,14 @@ public class MantisPlayer : MonoBehaviour
         layerHeld = LayerMask.NameToLayer("NoCollision");
 
         var map = inputActions.FindActionMap("Mantis");
-        moveAction   = map.FindAction("Move");
-        jumpAction   = map.FindAction("Jump");
+        moveAction = map.FindAction("Move");
+        jumpAction = map.FindAction("Jump");
         pickUpAction = map.FindAction("PickUp");
-        throwAction  = map.FindAction("Throw");
+        throwAction = map.FindAction("Throw");
         cutWebAction = map.FindAction("CutWeb");
     }
 
-    void OnEnable()  => inputActions.FindActionMap("Mantis").Enable();
+    void OnEnable() => inputActions.FindActionMap("Mantis").Enable();
     void OnDisable() => inputActions.FindActionMap("Mantis").Disable();
 
     void Update()
@@ -80,7 +80,7 @@ public class MantisPlayer : MonoBehaviour
 
     void FixedUpdate()
     {
-        bool isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
+        bool isGrounded = Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0f, groundLayer);
         animator.SetBool("isJumping", !isGrounded);
 
         rb.linearVelocity = new Vector2(moveInput * speed, rb.linearVelocity.y);

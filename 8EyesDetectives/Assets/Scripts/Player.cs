@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
 
     [SerializeField] private Transform groundCheck;
-    [SerializeField] private float groundRadius = 0.6f;
+    [SerializeField] private Vector2 groundCheckSize = new Vector2(0.8f, 0.1f);
     [SerializeField] private LayerMask groundLayer;
 
     [Header("Web Reference")]
@@ -39,10 +39,13 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        bool isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
-        animator.SetBool("isJumping", !isGrounded);
+        bool isGrounded = Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0f, groundLayer);
 
         bool isSwinging = webController != null && webController.IsAnyAttached;
+
+        animator.SetBool("isJumping", !isGrounded && !isSwinging);
+        animator.SetBool("isHanging", isSwinging);
+
         if (!isSwinging)
         {
             rb.linearVelocity = new Vector2(moveInput * speed, rb.linearVelocity.y);
@@ -52,7 +55,6 @@ public class Player : MonoBehaviour
         if (jumpAction.IsPressed() && isGrounded)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-            animator.SetBool("isJumping", true);
         }
 
         if (moveInput > 0) transform.localScale = new Vector3(1, 1, 1);
