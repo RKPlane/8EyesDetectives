@@ -1,11 +1,18 @@
-using UnityEngine;
-using UnityEngine.UI;
 using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Trigger : MonoBehaviour
 {
     [SerializeField] private GameObject black;
     [SerializeField] private DialogueConversation conversation;
+    enum TipoTrigger
+    {
+        Conversacion,
+        ZonaMuerte
+    }
+    [SerializeField] private TipoTrigger tipoTrigger = TipoTrigger.ZonaMuerte;
 
     public float fadeDuration = 0.5f;
     public float playerSeparation = 3f;
@@ -25,9 +32,10 @@ public class Trigger : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player") && !triggered)
         {
-            Debug.Log("triggered");
             triggered = true;
+            Debug.Log("[Trigger] Activated");
             StartCoroutine(RutinaFade());
+
         }
     }
 
@@ -37,9 +45,18 @@ public class Trigger : MonoBehaviour
         yield return Fade(0, 1);
 
         //Efecto que queremos ejecutar invisiblemente
-        Player.instance.transform.position = new Vector3(transform.position.x - playerSeparation, transform.position.y, transform.position.z);
-        MantisPlayer.instance.transform.position = new Vector3(transform.position.x + playerSeparation, transform.position.y, transform.position.z);
-        DialogueManager.Instance.StartConversation(conversation);
+        switch (tipoTrigger)
+        {
+            case TipoTrigger.ZonaMuerte:
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                break;
+            case TipoTrigger.Conversacion:
+                Player.instance.transform.position = new Vector3(transform.position.x - playerSeparation, transform.position.y, transform.position.z);
+                MantisPlayer.instance.transform.position = new Vector3(transform.position.x + playerSeparation, transform.position.y, transform.position.z);
+                DialogueManager.Instance.StartConversation(conversation);
+                break;
+        }
+
 
         //Fade a transparente
         yield return Fade(1, 0);

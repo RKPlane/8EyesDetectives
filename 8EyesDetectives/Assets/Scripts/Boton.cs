@@ -13,6 +13,8 @@ public class Boton : MonoBehaviour
     [SerializeField] private bool permanent = true; // El botón se queda presionado?
     [SerializeField] private TipoBoton tipoBoton;
     [SerializeField] private GameObject objetoEnlazado;
+    [SerializeField] private Sprite botonPresionado;
+    private Sprite botonDefault;
 
     // Funcionamiento interno
     public bool on = false;
@@ -23,12 +25,14 @@ public class Boton : MonoBehaviour
     private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
+        col = GetComponent<Collider2D>();
+        botonDefault = sr.sprite;
     }
 
     // Activación del botón
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if ((collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Caja")) && !on)
+        if ((collision.gameObject.CompareTag("Player") && !on) || collision.gameObject.CompareTag("Caja"))
         {
             // Efecto del botón
             switch (tipoBoton)
@@ -55,7 +59,9 @@ public class Boton : MonoBehaviour
 
             // Cambio interno en el botón
             on = true;
-            sr.color = Color.green;
+            sr.sprite = botonPresionado;
+            //sr.color = Color.green;
+
         }
     }
 
@@ -83,7 +89,8 @@ public class Boton : MonoBehaviour
 
                 // Cambio interno en el botón
                 on = false;
-                sr.color = Color.purple;
+                sr.sprite = botonDefault;
+                //sr.color = Color.purple;
             }
         }
     }
