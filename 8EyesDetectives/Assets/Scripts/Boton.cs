@@ -5,7 +5,8 @@ public class Boton : MonoBehaviour
     enum TipoBoton
     {
         Puerta,
-        Plataforma
+        Plataforma,
+        Rotable
     }
 
     // Customizable
@@ -27,17 +28,29 @@ public class Boton : MonoBehaviour
     // Activación del botón
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") && !on)
+        if ((collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Caja")) && !on)
         {
             // Efecto del botón
             switch (tipoBoton)
             {
                 case TipoBoton.Plataforma:
-
-                    break;
+                    if (collision.gameObject.CompareTag("Player"))
+                    {
+						objetoEnlazado.GetComponent<MoveableWeightPlatform>().weight = 0.125f;
+                    }
+                    else
+                    {
+						objetoEnlazado.GetComponent<MoveableWeightPlatform>().weight = 0.25f;
+					}
+					objetoEnlazado.GetComponent<MoveableWeightPlatform>().weighted = true;
+					objetoEnlazado.GetComponent<MoveableWeightPlatform>().unweighted = false;
+					break;
                 case TipoBoton.Puerta:
                     objetoEnlazado.GetComponent<Puerta>().Open();
                     break;
+                case TipoBoton.Rotable:
+					objetoEnlazado.GetComponent<RotablePlatform>().rotar = true;
+					break;
             }
 
             // Cambio interno en el botón
@@ -51,18 +64,22 @@ public class Boton : MonoBehaviour
     {
         if (!permanent)
         {
-            if (collision.gameObject.CompareTag("Player") && on && PlayersAtButton() == 0)
+            if ((collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Caja") && on && PlayersAtButton() == 0))
             {
                 // Efecto del botón
                 switch (tipoBoton)
                 {
                     case TipoBoton.Plataforma:
-
-                        break;
+						objetoEnlazado.GetComponent<MoveableWeightPlatform>().unweighted = true;
+						objetoEnlazado.GetComponent<MoveableWeightPlatform>().weighted = false;
+						break;
                     case TipoBoton.Puerta:
                         objetoEnlazado.GetComponent<Puerta>().Close();
                         break;
-                }
+					case TipoBoton.Rotable:
+						objetoEnlazado.GetComponent<RotablePlatform>().rotar = false;
+						break;
+				}
 
                 // Cambio interno en el botón
                 on = false;
