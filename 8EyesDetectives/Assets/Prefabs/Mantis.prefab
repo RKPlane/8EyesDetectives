@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 2555340447032324828}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.391, y: 0.147, z: 0}
+  m_LocalPosition: {x: 1.33, y: 0.694, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -97,7 +97,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.111650705, y: -0.13059223}
+  m_Offset: {x: 0.38252038, y: 0.20985878}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -107,7 +107,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.7766986, y: 1.1577947}
+  m_Size: {x: 1.3184379, y: 2.0872004}
   m_EdgeRadius: 0
 --- !u!1 &5124634474094578137
 GameObject:
@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 8030664046603015650}
   - component: {fileID: 4996920331313422461}
   - component: {fileID: 7801726256567026313}
+  - component: {fileID: 8285813793600655534}
   m_Layer: 0
   m_Name: Mantis
   m_TagString: Player
@@ -148,6 +149,7 @@ Transform:
   - {fileID: 6204755774266737299}
   - {fileID: 5623350375349633813}
   - {fileID: 7495696919555968377}
+  - {fileID: 3191461928624051693}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &8207543558111198589
@@ -172,7 +174,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -249,7 +251,7 @@ MonoBehaviour:
   carryCheck: {fileID: 6204755774266737299}
   carryCollider: {fileID: 2185193737630994197}
   groundCheck: {fileID: 531290408285916411}
-  groundRadius: 0.67
+  groundCheckSize: {x: 2, y: 0.1}
   groundLayer:
     serializedVersion: 2
     m_Bits: 72
@@ -393,6 +395,20 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.65378904, y: 0.26698232}
   m_EdgeRadius: 0
+--- !u!114 &8285813793600655534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5124634474094578137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6c0c3a1ad63fa14782d14188841a2d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueMouth
+  character: 1
+  mouthPoint: {fileID: 3191461928624051693}
 --- !u!1 &7087169394657271614
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,6 +435,37 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.32, y: -0.488, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8247450238607001832}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8270990592665947277
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3191461928624051693}
+  m_Layer: 0
+  m_Name: Boca
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3191461928624051693
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8270990592665947277}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.288, y: 1.292, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

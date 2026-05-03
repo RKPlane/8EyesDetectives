@@ -7,7 +7,7 @@ public class MantisPlayer : MonoBehaviour
     public float speed = 5f;
     public float jumpForce = 6f;
     public float lerpSpeed = 0.85f;
-    public float throwForce = 5f;
+    public float throwForce = 11f;
     private Rigidbody2D rb;
 
     // ── Input ─────────────────────────────────────────────────────────────
@@ -155,7 +155,6 @@ public class MantisPlayer : MonoBehaviour
     {
         GameObject objeto = heldObject;
         Soltar();
-        objeto.GetComponent<Rigidbody2D>().linearVelocityY =
-            throwForce + Mathf.Clamp(rb.linearVelocityY, 0, throwForce * maxThrowMultiplier);
+        objeto.GetComponent<Rigidbody2D>().linearVelocityY = throwForce + Mathf.Clamp(rb.linearVelocityY, 0, throwForce * maxThrowMultiplier);
     }
 }

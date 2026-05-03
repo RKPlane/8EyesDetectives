@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Web
   - Carryable
+  - Puerta
   layers:
   - Default
   - TransparentFX

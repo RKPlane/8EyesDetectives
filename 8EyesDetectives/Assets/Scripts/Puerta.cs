@@ -5,6 +5,7 @@ public class Puerta : MonoBehaviour
     [SerializeField] private bool open = false;
     private SpriteRenderer sr;
     private Collider2D col;
+    [SerializeField] private int ID = -1; //-1 si cualquier llave sirve, cualquier otra ID para llaves específicas
     [SerializeField] private Sprite closedDoor;
 
     void Start()
@@ -32,5 +33,10 @@ public class Puerta : MonoBehaviour
         open = false;
         sr.enabled = true;
         if (col != null) col.enabled = true;
+    }
+
+    public int GetID()
+    {
+        return ID;
     }
 }
