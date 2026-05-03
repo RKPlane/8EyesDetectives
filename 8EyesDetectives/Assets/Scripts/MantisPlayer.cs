@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 
 public class MantisPlayer : MonoBehaviour
 {
+    static public MantisPlayer instance;
+
     // ── Movement & physics ────────────────────────────────────────────────
     public float speed = 5f;
     public float jumpForce = 6f;
@@ -46,6 +48,8 @@ public class MantisPlayer : MonoBehaviour
 
     void Awake()
     {
+        instance = this;
+
         rb = GetComponent<Rigidbody2D>();
         layerDefaultObjetos = LayerMask.NameToLayer("Default");
         layerHeld = LayerMask.NameToLayer("NoCollision");

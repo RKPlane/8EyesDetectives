@@ -1275,6 +1275,7 @@ GameObject:
   - component: {fileID: 2665345248193730813}
   - component: {fileID: 656131291697535661}
   - component: {fileID: 4041056263023366519}
+  - component: {fileID: 2122292535148031633}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1551,6 +1552,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueMouth
   character: 0
   mouthPoint: {fileID: 7475437496976286116}
+--- !u!114 &2122292535148031633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6649994749089525137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 653343eff33241d48aa4c39f6f396819, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueManager
+  letterSpeed: 0.1
+  inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  dialoguePrefabL: {fileID: 861325772908851180, guid: f9f02e6c0aba7d3479fc4f92459d26aa, type: 3}
+  dialoguePrefabR: {fileID: 861325772908851180, guid: 4deef708085901f478228d0ea7d3aee4, type: 3}
 --- !u!1 &6815466601880156226
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,7 +17,7 @@ public class DialogueManager : MonoBehaviour
     //Variables configurables
     public float letterSpeed = 0.1f; //Cada cuanto tiempo (en segundos) se suma una letra al mensaje actual
     private float letterTimer = 0.0f; //Contador interno del tiempo que pasa
-    public DialogueConversation prueba; //TESTEO
+    //public DialogueConversation prueba; //TESTEO
 
     //Input y prefabs
     public InputActionAsset inputActions;
@@ -49,11 +49,6 @@ public class DialogueManager : MonoBehaviour
             Instance = this;
         }
         m_nextAction = InputSystem.actions.FindAction("Next");
-    }
-
-    void Start()
-    {
-        StartConversation(prueba);
     }
 
     void Update()

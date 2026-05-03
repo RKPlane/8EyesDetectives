@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Level1Start
   m_EditorClassIdentifier: Assembly-CSharp::DialogueConversation
   lines:
-  - characterName: 1
-    text: Hola que tal
   - characterName: 0
-    text: Mal
+    text: "\xA1R\xE1pido, Sakura, el sospechoso entr\xF3 por esa puerta!"
+  - characterName: 1
+    text: "Esta zona de la ciudad es un caos ahora mismo, ten cuidado compa\xF1era"
+  - characterName: 0
+    text: "Lo mismo te digo, amigo, \xA1vamos!"

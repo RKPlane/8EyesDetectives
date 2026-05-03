@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
+    static public Player instance;
+
     public float speed = 5f;
     public float jumpForce = 6f;
     private Rigidbody2D rb;
@@ -26,6 +28,7 @@ public class Player : MonoBehaviour
 
     void Awake()
     {
+        instance = this;
         rb = GetComponent<Rigidbody2D>();
         var map = inputActions.FindActionMap("Player");
         moveAction = map.FindAction("Move");
