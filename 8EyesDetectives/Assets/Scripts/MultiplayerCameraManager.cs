@@ -7,7 +7,7 @@ public class MultiplayerCameraManager : MonoBehaviour
 
 	[SerializeField] private float defaultRadius = 1f;
 
-	[SerializeField] private float defaultHeight = 1.4f;
+	[SerializeField] private float defaultHeight = 5f;
 
 	private void Awake()
 	{
