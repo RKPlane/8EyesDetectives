@@ -238,6 +238,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cebb1763c77fa34c901669c7f87741b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MultiplayerAutoRegister
+--- !u!4 &334201589 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8247450238607001832, guid: d654e7ca47472434f94f06e464ef5dfa, type: 3}
+  m_PrefabInstance: {fileID: 1525791901}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &573829808
 GameObject:
   m_ObjectHideFlags: 0
@@ -600,7 +605,7 @@ Transform:
   m_GameObject: {fileID: 629934138}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0.07181757, y: 0.17342615, z: -23.28852}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -788,6 +793,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cebb1763c77fa34c901669c7f87741b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MultiplayerAutoRegister
+--- !u!4 &818210578 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2501557797815954190, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
+  m_PrefabInstance: {fileID: 3128204666740214750}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &905683802
 GameObject:
   m_ObjectHideFlags: 0
@@ -1641,7 +1651,13 @@ MonoBehaviour:
   RotationMode: 0
   UpdateMethod: 2
   Targets:
-  - Object: {fileID: 0}
+  - Object: {fileID: 629934143}
+    Weight: 1
+    Radius: 4
+  - Object: {fileID: 818210578}
+    Weight: 1
+    Radius: 0.5
+  - Object: {fileID: 334201589}
     Weight: 1
     Radius: 0.5
   m_LegacyTargets: []
@@ -1654,7 +1670,7 @@ Transform:
   m_GameObject: {fileID: 1826172369}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.07181757, y: 0.17342615, z: -13.28852}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1673,8 +1689,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MultiplayerCameraManager
   targetGroup: {fileID: 1826172371}
-  defaultRadius: 1
-  defaultHeight: 1.4
+  defaultRadius: 2.92
+  defaultHeight: 30.43
 --- !u!1001 &3128204666740214750
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1765,7 +1781,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3064455014942276449, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
       propertyPath: orthographic size
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3074857804698239970, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1838,6 +1854,18 @@ PrefabInstance:
     - target: {fileID: 4339040266671155349, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.38132575
+      objectReference: {fileID: 0}
+    - target: {fileID: 4057068739710017392, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.07181757
+      objectReference: {fileID: 0}
+    - target: {fileID: 4057068739710017392, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.17342615
+      objectReference: {fileID: 0}
+    - target: {fileID: 4057068739710017392, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -27.28852
       objectReference: {fileID: 0}
     - target: {fileID: 4626816114030228866, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
       propertyPath: jumpForce
