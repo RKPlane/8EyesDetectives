@@ -453,7 +453,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineGroupFraming
   FramingMode: 2
-  FramingSize: 0.59
+  FramingSize: 0.47
   CenterOffset: {x: 0, y: 0}
   Damping: 2
   SizeAdjustment: 2
@@ -1674,7 +1674,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3064455014942276449, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
       propertyPath: orthographic size
-      value: 6.779661
+      value: 8.510638
       objectReference: {fileID: 0}
     - target: {fileID: 3074857804698239970, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
       propertyPath: m_LocalRotation.w
