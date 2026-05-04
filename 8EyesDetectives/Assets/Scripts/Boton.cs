@@ -60,7 +60,6 @@ public class Boton : MonoBehaviour
             // Cambio interno en el botón
             on = true;
             sr.sprite = botonPresionado;
-            //sr.color = Color.green;
 
         }
     }
@@ -70,7 +69,7 @@ public class Boton : MonoBehaviour
     {
         if (!permanent)
         {
-            if ((collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Caja") && on && PlayersAtButton() == 0))
+            if (((collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Caja")) && on && ThingsAtButton() == 0))
             {
                 // Efecto del botón
                 switch (tipoBoton)
@@ -90,24 +89,24 @@ public class Boton : MonoBehaviour
                 // Cambio interno en el botón
                 on = false;
                 sr.sprite = botonDefault;
-                //sr.color = Color.purple;
             }
         }
     }
 
-    private int PlayersAtButton()
+    private int ThingsAtButton()
     {
         // Comprobación de Players dentro del botón
-        Collider2D[] results = new Collider2D[2];
+        Collider2D[] results = new Collider2D[30];
         int colliders = col.Overlap(ContactFilter2D.noFilter, results);
         int playerAmount = 0;
         for (int i = 0; i < colliders; i++)
         {
-            if (results[i].gameObject.CompareTag("Player"))
+            if (results[i].gameObject.CompareTag("Player") || results[i].gameObject.CompareTag("Caja"))
             {
                 playerAmount++;
             }
         }
+        Debug.Log(playerAmount);
         return playerAmount;
     }
 }
