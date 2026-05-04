@@ -8,6 +8,7 @@ TagManager:
   - Carryable
   - Puerta
   - Caja
+  - Platform
   layers:
   - Default
   - TransparentFX

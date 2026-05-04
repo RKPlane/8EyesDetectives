@@ -47,7 +47,16 @@ public class Player : MonoBehaviour
         bool isSwinging = webController != null && webController.IsAnyAttached;
 
         animator.SetBool("isJumping", !isGrounded && !isSwinging);
-        animator.SetBool("isHanging", isSwinging);
+
+        if (!isSwinging)
+        {
+            animator.SetBool("isHanging", false);
+
+        } else
+        {
+            animator.SetBool("isHanging", true);
+
+        }
 
         if (!isSwinging)
         {
@@ -63,4 +72,6 @@ public class Player : MonoBehaviour
         if (moveInput > 0) transform.localScale = new Vector3(1, 1, 1);
         else if (moveInput < 0) transform.localScale = new Vector3(-1, 1, 1);
     }
+
 }
+
