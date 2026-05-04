@@ -1526,7 +1526,7 @@ MonoBehaviour:
   inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   grappleLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 1032
   maxDistance: 20
   stickRadius: 1.5
   swingForce: 5
@@ -1535,9 +1535,9 @@ MonoBehaviour:
   - {fileID: 8302614895859240890}
   - {fileID: 2114481412023625272}
   renderers:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8419218554027952041}
+  - {fileID: 1095946570606669212}
+  - {fileID: 609125044412402927}
 --- !u!114 &4041056263023366519
 MonoBehaviour:
   m_ObjectHideFlags: 0

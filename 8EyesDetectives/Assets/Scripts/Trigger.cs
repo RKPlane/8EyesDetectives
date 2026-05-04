@@ -37,6 +37,14 @@ public class Trigger : MonoBehaviour
             StartCoroutine(RutinaFade());
 
         }
+
+        if (collision.gameObject.CompareTag("Caja") && !triggered)
+        {
+            triggered = true;
+            Debug.Log("[Trigger] Activated");
+            StartCoroutine(RutinaFade());
+
+        }
     }
 
     IEnumerator RutinaFade()
