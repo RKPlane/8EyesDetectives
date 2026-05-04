@@ -55,7 +55,7 @@ public class Player : MonoBehaviour
             animator.SetFloat("Speed", moveInput * moveInput);
         }
 
-        if (jumpAction.IsPressed() && isGrounded)
+        if (jumpAction.IsPressed() && isGrounded && !isSwinging)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
         }
