@@ -251,10 +251,10 @@ MonoBehaviour:
   carryCheck: {fileID: 6204755774266737299}
   carryCollider: {fileID: 2185193737630994197}
   groundCheck: {fileID: 531290408285916411}
-  groundCheckSize: {x: 2, y: 0.1}
+  groundCheckSize: {x: 2, y: 0.15}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 72
+    m_Bits: 328
   bFaceRight: 0
   animator: {fileID: 1926007895211159822}
 --- !u!61 &8030664046603015650
