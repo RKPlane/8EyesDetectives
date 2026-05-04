@@ -71,6 +71,8 @@ public class Boton : MonoBehaviour
         {
             if (((collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Caja")) && on && ThingsAtButton() == 0))
             {
+
+                if (objetoEnlazado == null) return; //validacion
                 // Efecto del botón
                 switch (tipoBoton)
                 {

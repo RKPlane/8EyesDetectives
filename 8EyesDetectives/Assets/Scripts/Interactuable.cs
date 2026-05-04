@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -21,6 +22,7 @@ public class Interactuable : MonoBehaviour
     [SerializeField] private TextMeshPro tmp;
     [SerializeField] private string escena; // Transicion
     [SerializeField] private bool on = false; // Palanca
+    private HashSet<GameObject> playersInside = new HashSet<GameObject>(); //TEST
 
     private bool interactuable = false;
     [SerializeField] private float lerpSpeed = 0.05f;
@@ -67,22 +69,26 @@ public class Interactuable : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.CompareTag("Player") || collision.CompareTag("Player2"))
         {
-            // Marcar como interactuable
-            interactuable = true;
+            playersInside.Add(collision.gameObject);
 
+            if (playersInside.Count >= 2)
+            {
+                interactuable = true;
+            }
         }
     }
 
     // Desactivación del interactuable
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.CompareTag("Player") || collision.CompareTag("Player2"))
         {
-            if  (PlayersAtInteractable() == 0)
+            playersInside.Remove(collision.gameObject);
+
+            if (playersInside.Count < 2)
             {
-                // Desmarcar como interactuable si no hay ningún jugador
                 interactuable = false;
             }
         }
@@ -91,12 +97,12 @@ public class Interactuable : MonoBehaviour
     private int PlayersAtInteractable()
     {
         // Comprobación de Players dentro del interactuable
-        Collider2D[] results = new Collider2D[2];
+        Collider2D[] results = new Collider2D[10];
         int colliders = col.Overlap(ContactFilter2D.noFilter, results);
         int playerAmount = 0;
         for (int i = 0; i < colliders; i++)
         {
-            if (results[i].gameObject.CompareTag("Player"))
+            if (results[i] != null && results[i].CompareTag("Player"))
             {
                 playerAmount++;
             }

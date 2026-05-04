@@ -579,12 +579,28 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2665345248193730813, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
+      propertyPath: groundCheckSize.y
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2665345248193730813, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
       propertyPath: groundLayer.m_Bits
-      value: 72
+      value: 328
+      objectReference: {fileID: 0}
+    - target: {fileID: 3562282116818267010, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
+      propertyPath: colliderRadiusMultiplier
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3766567358004701727, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.518
       objectReference: {fileID: 0}
     - target: {fileID: 6649994749089525137, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8302614895859240890, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
+      propertyPath: colliderRadiusMultiplier
+      value: 0.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

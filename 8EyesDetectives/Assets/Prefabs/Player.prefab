@@ -1503,10 +1503,10 @@ MonoBehaviour:
   speed: 5
   jumpForce: 3
   groundCheck: {fileID: 3766567358004701727}
-  groundCheckSize: {x: 2, y: 0.1}
+  groundCheckSize: {x: 2, y: 0.15}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 72
+    m_Bits: 328
   webController: {fileID: 656131291697535661}
   inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   bFaceRight: 0
@@ -1689,7 +1689,7 @@ Transform:
   m_GameObject: {fileID: 7229557291977467395}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.426, y: -0.618, z: 0}
+  m_LocalPosition: {x: 0.426, y: -0.593, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

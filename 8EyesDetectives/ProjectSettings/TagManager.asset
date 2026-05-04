@@ -9,6 +9,7 @@ TagManager:
   - Puerta
   - Caja
   - Platform
+  - Player2
   layers:
   - Default
   - TransparentFX
