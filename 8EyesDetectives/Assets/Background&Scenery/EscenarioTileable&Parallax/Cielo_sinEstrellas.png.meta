@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: f2c5be538f4dfdb43b1c7e3fba3bea8f
+guid: c5dbb0252ada915478cdf0cebfb37fe9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8018464058120345471
-    second: Capa_05 Edificios Cercanos_0
-  - first:
-      213: -8350637468934106687
-    second: Capa_05 Edificios Cercanos_1
+      213: 87100828204146437
+    second: Cielo_sinEstrellas_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -103,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Capa_05 Edificios Cercanos_0
+      name: Cielo_sinEstrellas_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 813
-        height: 559
+        width: 1920
+        height: 1080
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,30 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 188ef7b3c61b8b090800000000000000
-      internalID: -8018464058120345471
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Capa_05 Edificios Cercanos_1
-      rect:
-        serializedVersion: 2
-        x: 873
-        y: 0
-        width: 1047
-        height: 545
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1c19d1037739c1c80800000000000000
-      internalID: -8350637468934106687
+      spriteID: 50f10c4edb1753100800000000000000
+      internalID: 87100828204146437
       vertices: []
       indices: 
       edges: []
@@ -150,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -160,8 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Capa_05 Edificios Cercanos_0: -8018464058120345471
-      Capa_05 Edificios Cercanos_1: -8350637468934106687
+      Cielo_sinEstrellas_0: 87100828204146437
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
