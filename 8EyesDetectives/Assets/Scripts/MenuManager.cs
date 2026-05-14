@@ -6,6 +6,7 @@ public class MenuManager : MonoBehaviour
 {
     public GameObject mainMenu;
     public GameObject menuOptions;
+	public GameObject pauseMenu;
 	public InputActionAsset inputActions;
 	private InputAction pauseAction;
     private bool isPaused = false;
@@ -28,9 +29,9 @@ public class MenuManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (pauseAction.IsPressed() && !isPaused){
+        if (pauseAction.WasPerformedThisFrame() && !isPaused){
             pauseGame();
-        } else if (pauseAction.IsPressed() && isPaused) {
+        } else if (pauseAction.WasPerformedThisFrame() && isPaused) {
             resumeGame();
         }
     }
@@ -39,28 +40,30 @@ public class MenuManager : MonoBehaviour
     {
         mainMenu.SetActive(false);
         menuOptions.SetActive(true);
-    }
+		pauseMenu.SetActive(false);
+	}
 
     public void OpenMainMenu()
     {
         mainMenu.SetActive(true);
         menuOptions.SetActive(false);
-    }
+		pauseMenu.SetActive(false);
+	}
 
     //Para mas adelante
     public void pauseGame()
     {
         Time.timeScale = 0;
-        OpenMainMenu();
-        isPaused = true;
+		pauseMenu.SetActive(true);
+		isPaused = true;
         Debug.Log("Paused");
 	}
 
     public void resumeGame()
     {
         Time.timeScale = 1;
-        OpenMainMenu();
-        isPaused = false;
+		pauseMenu.SetActive(false);
+		isPaused = false;
         Debug.Log("Resumed");
 	}
 	public void QuitGame()
@@ -73,8 +76,4 @@ public class MenuManager : MonoBehaviour
         SceneManager.LoadScene("Nivel0");
     }
 
-    public void ContinueGame()
-    {
-		SceneManager.LoadScene("WebTest");
-	}
 }
