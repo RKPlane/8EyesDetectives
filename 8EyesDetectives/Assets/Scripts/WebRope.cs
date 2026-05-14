@@ -8,8 +8,12 @@ public class WebRope : MonoBehaviour
     public int segmentCount = 16;
 
     [Header("Collision")]
-    [Tooltip("Multiplier of segment spacing used as collider radius. Keep above 0.5 to avoid gaps.")]
     public float colliderRadiusMultiplier = 0.6f;
+
+    //FIX
+    [Header("Catenary")]
+    [Range(0f, 0.5f)]
+    public float catenarySag = 0.15f;
 
     readonly List<Rigidbody2D> segments = new List<Rigidbody2D>();
     Rigidbody2D playerRb;
@@ -33,7 +37,10 @@ public class WebRope : MonoBehaviour
         for (int i = 0; i < segmentCount; i++)
         {
             float t = (float)i / (segmentCount - 1);
-            Vector2 pos = Vector2.Lerp(anchorPoint, player.position, t);
+
+            // FIX
+            Vector2 pos = CatenaryPoint(anchorPoint, player.position, t, catenarySag);
+
             GameObject go = Instantiate(segmentPrefab, pos, Quaternion.identity);
             go.layer = LayerMask.NameToLayer("Web");
 
@@ -44,15 +51,20 @@ public class WebRope : MonoBehaviour
             if (col == null) col = go.AddComponent<CircleCollider2D>();
             col.radius = colliderRadius;
 
-            segments.Add(go.GetComponent<Rigidbody2D>());
+            Rigidbody2D segRb = go.GetComponent<Rigidbody2D>();
+
+            // FIX
+            segRb.simulated = false;
+
+            segments.Add(segRb);
         }
 
-        //Primer segmento se ancla al mundo
+        // Primer segmento anclado al mundo
         HingeJoint2D anchor = segments[0].gameObject.AddComponent<HingeJoint2D>();
         anchor.autoConfigureConnectedAnchor = false;
         anchor.connectedAnchor = anchorPoint;
 
-        //Cadena de segmentos
+        // Cadena de segmentos
         for (int i = 1; i < segmentCount; i++)
         {
             HingeJoint2D joint = segments[i].gameObject.AddComponent<HingeJoint2D>();
@@ -60,15 +72,28 @@ public class WebRope : MonoBehaviour
             joint.autoConfigureConnectedAnchor = true;
         }
 
-        //El ultimo segmento va al Player
+        // Joint del jugador
         playerJoint = player.gameObject.AddComponent<HingeJoint2D>();
         playerJoint.connectedBody = segments[segmentCount - 1];
         playerJoint.autoConfigureConnectedAnchor = true;
 
+        //Joints slack
+        foreach (var seg in segments)
+            seg.simulated = true;
+
         IsPlayerAttached = true;
     }
 
-    //Despega al player y ancla el segmento al radio especificado mas cercano
+    //FIX
+    static Vector2 CatenaryPoint(Vector2 from, Vector2 to, float t, float sagAmount)
+    {
+        Vector2 linear = Vector2.Lerp(from, to, t);
+        float ropeLength = Vector2.Distance(from, to);
+        float sag = 4f * sagAmount * ropeLength * t * (1f - t);
+        return linear + Vector2.down * sag;
+    }
+
+    //TEMPORARY FIX
     public void DetachAndStick(LayerMask grappleLayer, float stickRadius)
     {
         if (!IsBuilt) return;
@@ -95,10 +120,9 @@ public class WebRope : MonoBehaviour
             }
             else
             {
-                pin.connectedAnchor = pinPoint; // world space SI NO HAY rigidbody
+                pin.connectedAnchor = pinPoint; // world space si no hay rigidbody
             }
         }
-        // si falla solo se desplega del ancla
     }
 
     public void Clear()
@@ -111,7 +135,7 @@ public class WebRope : MonoBehaviour
         IsPlayerAttached = false;
     }
 
-    // METODO FUTURO
+    // CUT
     public void Cut(int segmentIndex)
     {
         if (!IsBuilt || segmentIndex < 0 || segmentIndex >= segments.Count) return;
@@ -133,5 +157,49 @@ public class WebRope : MonoBehaviour
             playerJoint = null;
         }
         playerRb = null;
+    }
+
+    // Webs estaticas
+    public void BuildStatic(Vector2 pointA, Vector2 pointB)
+    {
+        Clear();
+        AnchorPoint = pointA;
+        IsPlayerAttached = false;
+
+        float ropeLength = Vector2.Distance(pointA, pointB);
+        float segmentSpacing = ropeLength / (segmentCount - 1);
+        float colliderRadius = segmentSpacing * colliderRadiusMultiplier;
+
+        for (int i = 0; i < segmentCount; i++)
+        {
+            float t = (float)i / (segmentCount - 1);
+            Vector2 pos = CatenaryPoint(pointA, pointB, t, catenarySag);
+            GameObject go = Instantiate(segmentPrefab, pos, Quaternion.identity);
+            go.layer = LayerMask.NameToLayer("Web");
+
+            WebSegment seg = go.AddComponent<WebSegment>();
+            seg.rope = this;
+
+            CircleCollider2D col = go.GetComponent<CircleCollider2D>();
+            if (col == null) col = go.AddComponent<CircleCollider2D>();
+            col.radius = colliderRadius;
+
+            segments.Add(go.GetComponent<Rigidbody2D>());
+        }
+
+        HingeJoint2D anchorA = segments[0].gameObject.AddComponent<HingeJoint2D>();
+        anchorA.autoConfigureConnectedAnchor = false;
+        anchorA.connectedAnchor = pointA;
+
+        for (int i = 1; i < segmentCount; i++)
+        {
+            HingeJoint2D joint = segments[i].gameObject.AddComponent<HingeJoint2D>();
+            joint.connectedBody = segments[i - 1];
+            joint.autoConfigureConnectedAnchor = true;
+        }
+
+        HingeJoint2D anchorB = segments[segmentCount - 1].gameObject.AddComponent<HingeJoint2D>();
+        anchorB.autoConfigureConnectedAnchor = false;
+        anchorB.connectedAnchor = pointB;
     }
 }

@@ -21,9 +21,9 @@ public class WebController : MonoBehaviour
     InputAction shootAction, detachAction, moveAction;
     Vector2 moveInput;
 
-    // Index of the rope the player is currently hanging from (-1 = detached).
     int attachedIndex = -1;
 
+    // FIX
     public bool IsAnyAttached =>
         attachedIndex >= 0 &&
         attachedIndex < ropes.Length &&
@@ -34,26 +34,26 @@ public class WebController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         var map = inputActions.FindActionMap("Player");
-        shootAction  = map.FindAction("ShootWeb");
+        shootAction = map.FindAction("ShootWeb");
         detachAction = map.FindAction("DetachWeb");
-        moveAction   = map.FindAction("Move");
+        moveAction = map.FindAction("Move");
     }
 
-    void OnEnable()  => inputActions.Enable();
+    void OnEnable() => inputActions.Enable();
     void OnDisable() => inputActions.Disable();
 
     void Update()
     {
         moveInput = moveAction.ReadValue<Vector2>();
 
-        // If the rope we were on was cut by the mantis, clear the tracked index.
+        // Si la rope fue cortada por la mantis, limpia el índice.
         if (attachedIndex >= 0 &&
             (ropes[attachedIndex] == null || !ropes[attachedIndex].IsPlayerAttached))
         {
             attachedIndex = -1;
         }
 
-        if (shootAction.WasPressedThisFrame())  TryAttach();
+        if (shootAction.WasPressedThisFrame()) TryAttach();
         if (detachAction.WasPressedThisFrame()) TryDetach();
     }
 
@@ -77,7 +77,7 @@ public class WebController : MonoBehaviour
 
         if (slot < 0) { Debug.Log("[Web] No free slot — all 3 webs exist"); return; }
 
-        Vector2 mousePos  = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         Vector2 direction = (mousePos - (Vector2)transform.position).normalized;
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, maxDistance, grappleLayer);
@@ -86,7 +86,7 @@ public class WebController : MonoBehaviour
         ropes[slot].Build(hit.point, rb);
         renderers[slot]?.Enable();
         attachedIndex = slot;
-        Debug.Log($"[Web] Attached to slot {slot}, IsPlayerAttached={ropes[slot].IsPlayerAttached}");
+        Debug.Log($"[Web] Attached to slot {slot}");
     }
 
     void TryDetach()
@@ -101,7 +101,7 @@ public class WebController : MonoBehaviour
     {
         if (rope == null || !rope.IsPlayerAttached) return;
         Vector2 toAnchor = (Vector2)transform.position - rope.AnchorPoint;
-        Vector2 tangent  = Vector2.Perpendicular(toAnchor.normalized);
+        Vector2 tangent = Vector2.Perpendicular(toAnchor.normalized);
         rb.AddForce(tangent * moveInput.x * swingForce);
     }
 }
