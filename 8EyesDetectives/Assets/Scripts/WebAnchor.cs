@@ -4,36 +4,42 @@ using UnityEngine;
 public class WebAnchor : MonoBehaviour
 {
     [Header("Puntos de anclaje")]
-    [Tooltip("Point A")]
+    [Tooltip("Extremo A de la web")]
     public Transform anchorA;
 
-    [Tooltip("Point B")]
+    [Tooltip("Extremo B de la web")]
     public Transform anchorB;
 
-    [Header("Rope")]
+    [Header("Rigidbodies dinámicos (opcional)")]
+    [Tooltip("SI EL POINTB ESTA PEGADO A ALGO PONLE EL RIGIDBODY DEL OBJETO TARGET AQUI SI NO DEJALO VACIO")]
+    public Rigidbody2D rbA;
+
+    [Tooltip("SI EL POINTB ESTA PEGADO B ALGO PONLE EL RIGIDBODY DEL OBJETO TARGET AQUI SI NO DEJALO VACIO")]
+    public Rigidbody2D rbB;
+
+    [Header("Referencias")]
     public WebRope rope;
 
     void Awake()
     {
         if (rope == null)
         {
-            Debug.LogError("Falta asignar la WebRope en el Inspector.", this);
+            Debug.LogError("[WebAnchor] Falta asignar la WebRope en el Inspector.", this);
             return;
         }
         if (anchorA == null || anchorB == null)
         {
-            Debug.LogError("Faltan anchorA o anchorB.", this);
+            Debug.LogError("[WebAnchor] Faltan anchorA o anchorB.", this);
             return;
         }
 
-        rope.BuildStatic(anchorA.position, anchorB.position);
+        rope.BuildStatic(anchorA.position, anchorB.position, rbA, rbB);
 
         // Activa el renderer si hay uno asignado
         GetComponent<WebRenderer>()?.Enable();
     }
 
 #if UNITY_EDITOR
-    // Dibuja un preview en la escena para facilitar el placement
     void OnDrawGizmos()
     {
         if (anchorA == null || anchorB == null) return;

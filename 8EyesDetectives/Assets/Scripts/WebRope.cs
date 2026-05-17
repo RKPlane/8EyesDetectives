@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class WebRope : MonoBehaviour
@@ -8,10 +8,11 @@ public class WebRope : MonoBehaviour
     public int segmentCount = 16;
 
     [Header("Collision")]
+    [Tooltip("Multiplier of segment spacing used as collider radius. Keep above 0.5 to avoid gaps.")]
     public float colliderRadiusMultiplier = 0.6f;
 
-    //FIX
     [Header("Catenary")]
+    [Tooltip("Cuánto cuelga la cuerda al spawnearse. 0.15 ta bien")]
     [Range(0f, 0.5f)]
     public float catenarySag = 0.15f;
 
@@ -37,8 +38,6 @@ public class WebRope : MonoBehaviour
         for (int i = 0; i < segmentCount; i++)
         {
             float t = (float)i / (segmentCount - 1);
-
-            // FIX
             Vector2 pos = CatenaryPoint(anchorPoint, player.position, t, catenarySag);
 
             GameObject go = Instantiate(segmentPrefab, pos, Quaternion.identity);
@@ -53,7 +52,6 @@ public class WebRope : MonoBehaviour
 
             Rigidbody2D segRb = go.GetComponent<Rigidbody2D>();
 
-            // FIX
             segRb.simulated = false;
 
             segments.Add(segRb);
@@ -77,14 +75,13 @@ public class WebRope : MonoBehaviour
         playerJoint.connectedBody = segments[segmentCount - 1];
         playerJoint.autoConfigureConnectedAnchor = true;
 
-        //Joints slack
+        //FIX
         foreach (var seg in segments)
             seg.simulated = true;
 
         IsPlayerAttached = true;
     }
 
-    //FIX
     static Vector2 CatenaryPoint(Vector2 from, Vector2 to, float t, float sagAmount)
     {
         Vector2 linear = Vector2.Lerp(from, to, t);
@@ -93,7 +90,7 @@ public class WebRope : MonoBehaviour
         return linear + Vector2.down * sag;
     }
 
-    //TEMPORARY FIX
+    // Despega al player y ancla el segmento al radio especificado más cercano
     public void DetachAndStick(LayerMask grappleLayer, float stickRadius)
     {
         if (!IsBuilt) return;
@@ -135,7 +132,7 @@ public class WebRope : MonoBehaviour
         IsPlayerAttached = false;
     }
 
-    // CUT
+    // METODO FUTURO
     public void Cut(int segmentIndex)
     {
         if (!IsBuilt || segmentIndex < 0 || segmentIndex >= segments.Count) return;
@@ -159,8 +156,9 @@ public class WebRope : MonoBehaviour
         playerRb = null;
     }
 
-    // Webs estaticas
-    public void BuildStatic(Vector2 pointA, Vector2 pointB)
+    //WEBS ESTATICAS
+    public void BuildStatic(Vector2 pointA, Vector2 pointB,
+                            Rigidbody2D rbA = null, Rigidbody2D rbB = null)
     {
         Clear();
         AnchorPoint = pointA;
@@ -187,10 +185,22 @@ public class WebRope : MonoBehaviour
             segments.Add(go.GetComponent<Rigidbody2D>());
         }
 
-        HingeJoint2D anchorA = segments[0].gameObject.AddComponent<HingeJoint2D>();
-        anchorA.autoConfigureConnectedAnchor = false;
-        anchorA.connectedAnchor = pointA;
+        // Extremo A
+        HingeJoint2D jointA = segments[0].gameObject.AddComponent<HingeJoint2D>();
+        jointA.autoConfigureConnectedAnchor = false;
+        if (rbA != null)
+        {
+            // TELAS DINAMICAS PUNTO A
+            jointA.connectedBody = rbA;
+            jointA.connectedAnchor = rbA.transform.InverseTransformPoint(pointA);
+        }
+        else
+        {
+            // Clava al mundo
+            jointA.connectedAnchor = pointA;
+        }
 
+        // Cadena interna
         for (int i = 1; i < segmentCount; i++)
         {
             HingeJoint2D joint = segments[i].gameObject.AddComponent<HingeJoint2D>();
@@ -198,8 +208,19 @@ public class WebRope : MonoBehaviour
             joint.autoConfigureConnectedAnchor = true;
         }
 
-        HingeJoint2D anchorB = segments[segmentCount - 1].gameObject.AddComponent<HingeJoint2D>();
-        anchorB.autoConfigureConnectedAnchor = false;
-        anchorB.connectedAnchor = pointB;
+        // Extremo B
+        HingeJoint2D jointB = segments[segmentCount - 1].gameObject.AddComponent<HingeJoint2D>();
+        jointB.autoConfigureConnectedAnchor = false;
+        if (rbB != null)
+        {
+            // TELAS DINAMICAS PUNTO B
+            jointB.connectedBody = rbB;
+            jointB.connectedAnchor = rbB.transform.InverseTransformPoint(pointB);
+        }
+        else
+        {
+            // Clava al mundo
+            jointB.connectedAnchor = pointB;
+        }
     }
 }
