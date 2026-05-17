@@ -89,6 +89,7 @@ public class MantisPlayer : MonoBehaviour
         {
             //Si el control se quita mientras moveInput tiene un valor, el valor nunca volvería a cero, por eso hace falta esta línea
             moveInput = 0f;
+            tryingJump = false;
         }
 
     }

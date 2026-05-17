@@ -106,7 +106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Puerta
   open: 0
   ID: -1
-  closedDoor: {fileID: -5635491611388380728, guid: a69ffc2be003c98419144b9e594bd2f0, type: 3}
+  openDoor: {fileID: -5635491611388380728, guid: a69ffc2be003c98419144b9e594bd2f0, type: 3}
 --- !u!61 &4307629583873786763
 BoxCollider2D:
   m_ObjectHideFlags: 0

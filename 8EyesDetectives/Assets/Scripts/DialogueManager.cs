@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Device;
 using UnityEngine.InputSystem;
 
 public class DialogueManager : MonoBehaviour
@@ -55,7 +56,6 @@ public class DialogueManager : MonoBehaviour
     {
         if (running)
         {
-            UpdatePosition();
             if (currentLineText.Equals(currentMsg))
             {
                 //Avanzar de línea al presionar el botón de "Next"
@@ -74,6 +74,14 @@ public class DialogueManager : MonoBehaviour
                     letterTimer = 0.0f;
                 }
             }
+        }
+    }
+
+    private void LateUpdate()
+    {
+        if (running)
+        {
+            UpdatePosition();
         }
     }
 
@@ -156,6 +164,7 @@ public class DialogueManager : MonoBehaviour
         {
             currentInstance.transform.position = characterData[personaje].position;
         }
+        currentInstance.transform.forward = Camera.main.transform.forward;
     }
 
     private GameObject CheckSide()

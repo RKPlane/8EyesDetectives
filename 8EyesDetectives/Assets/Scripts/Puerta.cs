@@ -6,11 +6,13 @@ public class Puerta : MonoBehaviour
     private SpriteRenderer sr;
     private Collider2D col;
     [SerializeField] private int ID = -1; //-1 si cualquier llave sirve, cualquier otra ID para llaves específicas
-    [SerializeField] private Sprite closedDoor;
+    [SerializeField] private Sprite openDoor;
+    private Sprite closedDoor;
 
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
+        closedDoor = sr.sprite;
         col = GetComponent<Collider2D>();
     }
 
@@ -19,8 +21,8 @@ public class Puerta : MonoBehaviour
         if (!open)
         {
             open = true;
-            if (closedDoor != null)
-                sr.sprite = closedDoor;
+            if (openDoor != null)
+                sr.sprite = openDoor;
             else
                 sr.enabled = false;
 
@@ -31,7 +33,7 @@ public class Puerta : MonoBehaviour
     public void Close()
     {
         open = false;
-        sr.enabled = true;
+        sr.sprite = closedDoor;
         if (col != null) col.enabled = true;
     }
 

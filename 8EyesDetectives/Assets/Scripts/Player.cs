@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
 
     [Header("Input")]
     public InputActionAsset inputActions;
+    private bool tryingJump = false;
 
     private InputAction moveAction;
     private InputAction jumpAction;
@@ -41,11 +42,14 @@ public class Player : MonoBehaviour
         if (control)
         {
             moveInput = moveAction.ReadValue<Vector2>().x;
+            tryingJump = jumpAction.IsPressed();
         } else
         {
             //Si el control se quita mientras moveInput tiene un valor, el valor nunca volvería a cero, por eso hace falta esta línea
             moveInput = 0f;
+            tryingJump = false;
         }
+        
     }
 
     void FixedUpdate()
@@ -72,7 +76,7 @@ public class Player : MonoBehaviour
             animator.SetFloat("Speed", moveInput * moveInput);
         }
 
-        if (jumpAction.IsPressed() && isGrounded && !isSwinging)
+        if (tryingJump && isGrounded && !isSwinging)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
         }

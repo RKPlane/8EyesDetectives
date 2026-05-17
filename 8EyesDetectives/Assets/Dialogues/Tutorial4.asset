@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3432c78acb384d24d8b755bd6161c400, type: 3}
+  m_Name: Tutorial4
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueConversation
+  lines:
+  - characterName: 1
+    text: "Oye, Silk, \xBFeso de ah\xED no es igualito a tu sombrero?"
+  - characterName: 0
+    text: ...
+  - characterName: 1
+    text: "\xA1Madre m\xEDa! Mira qu\xE9 barato, \xBFte compras los sombreros en
+      Mariposastre? Alguien de clase alta como t\xFA comprando all\xED, eh..."
+  - characterName: 0
+    text: "Tiene suerte que est\xE9 de buen humor hoy, no me agradan nada sus tonter\xEDas.
+      Le faltar\xEDa a estas alturas pisarme la cara para terminar"
+  - characterName: 1
+    text: "Pues mira, me vendr\xEDa bien saltar a tu espalda para llegar al bot\xF3n
+      de ahi arriba, aunque no s\xE9 qu\xE9 podr\xEDamos dejar sobre el bot\xF3n
+      para avanzar"
+  - characterName: 0
+    text: Que ciego es a veces, Sakura...
+  - characterName: 0
+    text: "El sombrero est\xE1 claramente puesto para que lo usemos de peso sobre
+      el bot\xF3n. Use sus habilidades para cogerlo y soltarlo encima antes de que
+      me aburra"

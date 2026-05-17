@@ -44,17 +44,23 @@ public class WebController : MonoBehaviour
 
     void Update()
     {
-        moveInput = moveAction.ReadValue<Vector2>();
-
-        // Si la rope fue cortada por la mantis, limpia el índice.
-        if (attachedIndex >= 0 &&
-            (ropes[attachedIndex] == null || !ropes[attachedIndex].IsPlayerAttached))
+        if (Player.instance.control)
         {
-            attachedIndex = -1;
-        }
+            moveInput = moveAction.ReadValue<Vector2>();
 
-        if (shootAction.WasPressedThisFrame()) TryAttach();
-        if (detachAction.WasPressedThisFrame()) TryDetach();
+            // Si la rope fue cortada por la mantis, limpia el índice.
+            if (attachedIndex >= 0 &&
+                (ropes[attachedIndex] == null || !ropes[attachedIndex].IsPlayerAttached))
+            {
+                attachedIndex = -1;
+            }
+
+            if (shootAction.WasPressedThisFrame()) TryAttach();
+            if (detachAction.WasPressedThisFrame()) TryDetach();
+        } else
+        {
+            moveInput = Vector2.zero;
+        }
     }
 
     void FixedUpdate()

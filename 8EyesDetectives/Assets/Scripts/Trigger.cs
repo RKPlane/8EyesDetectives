@@ -36,6 +36,7 @@ public class Trigger : MonoBehaviour
         {
             if (collision.gameObject.CompareTag("Player") && PlayersAtTrigger() >= playerRequirement)
             {
+                Debug.Log(PlayersAtTrigger());
                 triggered = true;
                 Debug.Log("[Trigger] Activated");
                 StartCoroutine(RutinaFade());
@@ -72,6 +73,7 @@ public class Trigger : MonoBehaviour
             case TipoTrigger.Conversacion:
                 Player.instance.transform.position = new Vector3(transform.position.x - playerSeparation, transform.position.y, transform.position.z);
                 MantisPlayer.instance.transform.position = new Vector3(transform.position.x + playerSeparation, transform.position.y, transform.position.z);
+                MantisPlayer.instance.transform.localScale = new Vector3(-1, 1, 1);
                 DialogueManager.Instance.StartConversation(conversation);
                 break;
         }
@@ -99,7 +101,7 @@ public class Trigger : MonoBehaviour
     }
     private int PlayersAtTrigger()
     {
-        // Comprobación de Players dentro del botón
+        // Comprobación de Players dentro del Trigger
         Collider2D[] results = new Collider2D[30];
         int colliders = col.Overlap(ContactFilter2D.noFilter, results);
         int playerAmount = 0;

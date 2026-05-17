@@ -32,7 +32,7 @@ public class Boton : MonoBehaviour
     // Activación del botón
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if ((collision.gameObject.CompareTag("Player") && !on) || collision.gameObject.CompareTag("Caja"))
+        if ((collision.gameObject.CompareTag("Player") && !on) || collision.gameObject.CompareTag("Caja") || collision.gameObject.CompareTag("Carryable"))
         {
             // Efecto del botón
             switch (tipoBoton)
@@ -69,7 +69,7 @@ public class Boton : MonoBehaviour
     {
         if (!permanent)
         {
-            if (((collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Caja")) && on && ThingsAtButton() == 0))
+            if (((collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Caja") || collision.gameObject.CompareTag("Carryable")) && on && ThingsAtButton() == 0))
             {
 
                 if (objetoEnlazado == null) return; //validacion
