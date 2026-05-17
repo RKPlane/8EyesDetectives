@@ -6,7 +6,8 @@ public class Boton : MonoBehaviour
     {
         Puerta,
         Plataforma,
-        Rotable
+        Rotable,
+        Vertical
     }
 
     // Customizable
@@ -55,6 +56,9 @@ public class Boton : MonoBehaviour
                 case TipoBoton.Rotable:
 					objetoEnlazado.GetComponent<RotablePlatform>().rotar = true;
 					break;
+                case TipoBoton.Vertical:
+                    objetoEnlazado.GetComponent<MoveableVertical>().active = true;
+                    break;
             }
 
             // Cambio interno en el botón
@@ -85,6 +89,9 @@ public class Boton : MonoBehaviour
                         break;
 					case TipoBoton.Rotable:
 						objetoEnlazado.GetComponent<RotablePlatform>().rotar = false;
+						break;
+					case TipoBoton.Vertical:
+						objetoEnlazado.GetComponent<MoveableVertical>().active = false;
 						break;
 				}
 
