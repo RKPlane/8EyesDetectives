@@ -257,6 +257,7 @@ MonoBehaviour:
     m_Bits: 2376
   bFaceRight: 0
   animator: {fileID: 1926007895211159822}
+  control: 1
 --- !u!61 &8030664046603015650
 BoxCollider2D:
   m_ObjectHideFlags: 0
