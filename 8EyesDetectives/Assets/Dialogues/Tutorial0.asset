@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3432c78acb384d24d8b755bd6161c400, type: 3}
+  m_Name: Tutorial0
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueConversation
+  lines:
+  - characterName: 2
+    text: "Gracias por asistir al cursillo de trabajo en equipo de Bichillos\u2122!"
+  - characterName: 2
+    text: Por favor avancen a la primera prueba
+  - characterName: 2
+    text: "Gracias por su colaboraci\xF3n!"
+  - characterName: 0
+    text: "Espero que esto valga la pena, Sakura, estamos perdiendo valioso tiempo
+      aqu\xED"
+  - characterName: 1
+    text: "Ya ver\xE1s t\xFA como salimos de aqu\xED dando volteretas de amistad"
+  - characterName: 0
+    text: ...

@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3432c78acb384d24d8b755bd6161c400, type: 3}
+  m_Name: Tutorial2
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueConversation
+  lines:
+  - characterName: 0
+    text: "\xBFPor qu\xE9 pone esa cara? Est\xE1 muy animada hoy con sus saltos,
+      pruebe"
+  - characterName: 1
+    text: "Vaale, no hace falta que me lo restriegues as\xED. Ya s\xE9 que no puedo
+      saltar esto tan grande..."
+  - characterName: 0
+    text: Genial, pues deje q-
+  - characterName: 1
+    text: "Que s\xED, que ya me conozco tu retah\xEDla de siempre:"
+  - characterName: 1
+    text: "\"Mis telas llegan lej\xEDsimos t\xEDo, solo con apuntar a un material
+      apto de esos, que tienen as\xEDn el ladrillo claro, y disparar, lanzo una tela
+      de ara\xF1a ke sirve de puente\""
+  - characterName: 1
+    text: "\"Y luego al soltarla con mis superbonitas patitas, se pega al material
+      apto m\xE1s cercano que haya, si hay\""
+  - characterName: 0
+    text: ...
+  - characterName: 0
+    text: "Creo que a veces se le olvida de qui\xE9n depende su sueldo, por muy amigos
+      que seamos"

@@ -14,45 +14,48 @@ public class Trigger : MonoBehaviour
     }
     [SerializeField] private TipoTrigger tipoTrigger = TipoTrigger.ZonaMuerte;
 
+    public int playerRequirement = 1;
     public float fadeDuration = 0.5f;
     public float playerSeparation = 3f;
     private Image img;
     private bool triggered = false;
+    private SpriteRenderer sr;
+    private Collider2D col;
     private void Awake()
     {
-        img = black.GetComponent<Image>();
-    }
 
-    void Update()
-    {
-        
+        img = black.GetComponent<Image>();
+        col = GetComponent<Collider2D>();
+        sr = GetComponent<SpriteRenderer>();
+        sr.enabled = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") && !triggered)
+        if (!triggered)
         {
-            triggered = true;
-            Debug.Log("[Trigger] Activated");
-            StartCoroutine(RutinaFade());
+            if (collision.gameObject.CompareTag("Player") && PlayersAtTrigger() >= playerRequirement)
+            {
+                triggered = true;
+                Debug.Log("[Trigger] Activated");
+                StartCoroutine(RutinaFade());
+            }
 
+            if (collision.gameObject.CompareTag("Caja"))
+            {
+                triggered = true;
+                Debug.Log("[Trigger] Activated");
+                StartCoroutine(RutinaFade());
+            }
+
+            if (collision.gameObject.CompareTag("Carryable"))
+            {
+                triggered = true;
+                Debug.Log("[Trigger] Activated");
+                StartCoroutine(RutinaFade());
+
+            }
         }
-
-        if (collision.gameObject.CompareTag("Caja") && !triggered)
-        {
-            triggered = true;
-            Debug.Log("[Trigger] Activated");
-            StartCoroutine(RutinaFade());
-
-        }
-
-		if (collision.gameObject.CompareTag("Carryable") && !triggered)
-		{
-			triggered = true;
-			Debug.Log("[Trigger] Activated");
-			StartCoroutine(RutinaFade());
-
-		}
 	}
 
     IEnumerator RutinaFade()
@@ -93,5 +96,21 @@ public class Trigger : MonoBehaviour
 
         c.a = end;
         img.color = c;
+    }
+    private int PlayersAtTrigger()
+    {
+        // Comprobación de Players dentro del botón
+        Collider2D[] results = new Collider2D[30];
+        int colliders = col.Overlap(ContactFilter2D.noFilter, results);
+        int playerAmount = 0;
+        for (int i = 0; i < colliders; i++)
+        {
+            if (results[i].gameObject.CompareTag("Player"))
+            {
+                playerAmount++;
+            }
+        }
+        Debug.Log(playerAmount);
+        return playerAmount;
     }
 }

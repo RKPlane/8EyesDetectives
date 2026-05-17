@@ -29,7 +29,7 @@ public class DialogueManager : MonoBehaviour
     private Dictionary<Characters, Transform> characterData = new Dictionary<Characters, Transform>();
 
     //Control
-    private bool running = false;
+    public bool running = false;
 
     //Funcionamiento interno
     private string currentMsg = string.Empty; //String que se dibuja en pantalla
@@ -106,14 +106,13 @@ public class DialogueManager : MonoBehaviour
     {
         if (currentConversation == null)
         {
+            TogglePlayerControl();
             running = true;
             currentInstance = Instantiate(CheckSide()); //Instanciamos el prefab de diálogo con TMP y SpriteRenderer
             tmp = currentInstance.GetComponentInChildren<TextMeshPro>();
 
             currentConversation = conversation; //Cargamos la conversación 
             currentLineText = currentConversation.lines[currentLine].text; //Cargamos el texto de la primera línea
-
-            //UpdatePosition();
         }
     }
 
@@ -132,13 +131,14 @@ public class DialogueManager : MonoBehaviour
         {
             //Si no estamos en el final, cargamos siguiente diálogo
             currentLineText = currentConversation.lines[currentLine].text; //Cargamos el texto de la línea actual
-            //UpdatePosition();
         }
     }
 
     public void EndConversation()
     {
+        TogglePlayerControl();
         running = false;
+        currentLine = 0;
         currentConversation = null;
         Destroy(currentInstance);
     }
@@ -162,6 +162,12 @@ public class DialogueManager : MonoBehaviour
     {
         //Lógica que decide si el dialogo debe tirarse a la izquierda o a la derecha (depende de la cámara)
         return dialoguePrefabR;
+    }
+
+    private void TogglePlayerControl()
+    {
+        MantisPlayer.instance.control = !MantisPlayer.instance.control;
+        Player.instance.control = !Player.instance.control;
     }
 
 }

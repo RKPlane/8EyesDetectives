@@ -5,7 +5,8 @@ using UnityEngine;
 public enum Characters
 {
     Spider,
-    Mantis
+    Mantis,
+    Jefe
 }
 
 //Estructura para cada línea de diálogo

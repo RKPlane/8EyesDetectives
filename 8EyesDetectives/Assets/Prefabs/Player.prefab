@@ -364,6 +364,7 @@ MonoBehaviour:
   segmentPrefab: {fileID: 3527843208189288861, guid: 12767242479e87246bcf4a0ba43bc375, type: 3}
   segmentCount: 16
   colliderRadiusMultiplier: 0.6
+  catenarySag: 0.15
 --- !u!1 &3316051569277057182
 GameObject:
   m_ObjectHideFlags: 0
@@ -893,6 +894,7 @@ MonoBehaviour:
   segmentPrefab: {fileID: 3527843208189288861, guid: 12767242479e87246bcf4a0ba43bc375, type: 3}
   segmentCount: 16
   colliderRadiusMultiplier: 0.6
+  catenarySag: 0.15
 --- !u!1 &5990853835550179024
 GameObject:
   m_ObjectHideFlags: 0
@@ -1130,6 +1132,7 @@ MonoBehaviour:
   segmentPrefab: {fileID: 3527843208189288861, guid: 12767242479e87246bcf4a0ba43bc375, type: 3}
   segmentCount: 16
   colliderRadiusMultiplier: 0.6
+  catenarySag: 0.15
 --- !u!1 &6329122130925828903
 GameObject:
   m_ObjectHideFlags: 0
@@ -1509,6 +1512,7 @@ MonoBehaviour:
     m_Bits: 4424
   webController: {fileID: 656131291697535661}
   inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  control: 1
   bFaceRight: 0
   animator: {fileID: 8919008140655436651}
 --- !u!114 &656131291697535661
@@ -1568,6 +1572,7 @@ MonoBehaviour:
   inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   dialoguePrefabL: {fileID: 861325772908851180, guid: f9f02e6c0aba7d3479fc4f92459d26aa, type: 3}
   dialoguePrefabR: {fileID: 861325772908851180, guid: 4deef708085901f478228d0ea7d3aee4, type: 3}
+  running: 0
 --- !u!1 &6815466601880156226
 GameObject:
   m_ObjectHideFlags: 0

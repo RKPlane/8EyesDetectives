@@ -15,6 +15,7 @@ public class MantisPlayer : MonoBehaviour
     // ── Input ─────────────────────────────────────────────────────────────
     [Header("Input")]
     public InputActionAsset inputActions;
+    private bool tryingJump = false;
 
     // ── Cut web ───────────────────────────────────────────────────────────
     [Header("Cut Web")]
@@ -43,6 +44,7 @@ public class MantisPlayer : MonoBehaviour
     public Animator animator;
 
     // ── Internal state ────────────────────────────────────────────────────
+    public bool control = false;
     private float moveInput;
     private InputAction moveAction, jumpAction, pickUpAction, throwAction, cutWebAction;
 
@@ -67,19 +69,28 @@ public class MantisPlayer : MonoBehaviour
 
     void Update()
     {
-        moveInput = moveAction.ReadValue<Vector2>().x;
+        if (control) {
+            moveInput = moveAction.ReadValue<Vector2>().x;
 
-        if (pickUpAction.WasPressedThisFrame())
+            if (pickUpAction.WasPressedThisFrame())
+            {
+                if (isHolding) Soltar();
+                else TryPickUp();
+            }
+
+            if (throwAction.WasPressedThisFrame() && isHolding)
+                Lanzar();
+
+            if (cutWebAction.WasPressedThisFrame())
+                TryCutWeb();
+
+            tryingJump = jumpAction.IsPressed();
+        } else
         {
-            if (isHolding) Soltar();
-            else TryPickUp();
+            //Si el control se quita mientras moveInput tiene un valor, el valor nunca volvería a cero, por eso hace falta esta línea
+            moveInput = 0f;
         }
 
-        if (throwAction.WasPressedThisFrame() && isHolding)
-            Lanzar();
-
-        if (cutWebAction.WasPressedThisFrame())
-            TryCutWeb();
     }
 
     void FixedUpdate()
@@ -90,7 +101,7 @@ public class MantisPlayer : MonoBehaviour
         rb.linearVelocity = new Vector2(moveInput * speed, rb.linearVelocity.y);
         animator.SetFloat("Speed", moveInput * moveInput);
 
-        if (jumpAction.IsPressed() && isGrounded)
+        if (tryingJump && isGrounded)
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
 
         if (moveInput > 0) transform.localScale = new Vector3(1, 1, 1);

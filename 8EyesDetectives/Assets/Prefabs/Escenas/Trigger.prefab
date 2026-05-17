@@ -260,7 +260,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 1, g: 0.8780921, b: 0, a: 0.36078432}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -284,6 +284,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Trigger
   black: {fileID: 279356108225532631}
   conversation: {fileID: 11400000, guid: 21e73a8c383837047aa93db473d190b9, type: 2}
+  tipoTrigger: 0
   fadeDuration: 0.5
   playerSeparation: 1.5
 --- !u!61 &5731532852560624737

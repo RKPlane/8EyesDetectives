@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     private InputAction jumpAction;
     private float moveInput;
 
+    public bool control = false;
     public bool bFaceRight;
     public Animator animator;
 
@@ -37,7 +38,14 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        moveInput = moveAction.ReadValue<Vector2>().x;
+        if (control)
+        {
+            moveInput = moveAction.ReadValue<Vector2>().x;
+        } else
+        {
+            //Si el control se quita mientras moveInput tiene un valor, el valor nunca volvería a cero, por eso hace falta esta línea
+            moveInput = 0f;
+        }
     }
 
     void FixedUpdate()
