@@ -254,7 +254,7 @@ MonoBehaviour:
   groundCheckSize: {x: 1.1, y: 0.165}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 2376
+    m_Bits: 2888
   bFaceRight: 0
   animator: {fileID: 1926007895211159822}
   control: 1
