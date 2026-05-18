@@ -2955,7 +2955,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9021379127118570578, guid: d654e7ca47472434f94f06e464ef5dfa, type: 3}
       propertyPath: groundLayer.m_Bits
-      value: 2824
+      value: 776
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6175287888952342577, guid: d654e7ca47472434f94f06e464ef5dfa, type: 3}
@@ -3933,7 +3933,7 @@ PrefabInstance:
       objectReference: {fileID: 3128204666740214752}
     - target: {fileID: 2665345248193730813, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
       propertyPath: groundLayer.m_Bits
-      value: 4872
+      value: 776
       objectReference: {fileID: 0}
     - target: {fileID: 3064455014942276449, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
       propertyPath: orthographic size
