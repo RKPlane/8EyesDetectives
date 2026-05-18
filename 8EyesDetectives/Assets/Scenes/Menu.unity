@@ -470,6 +470,14 @@ PrefabInstance:
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 323470652}
+    - target: {fileID: 3193274922375395371, guid: faf40d247aa125c48aa37be105dab2dd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4261039934236424836, guid: faf40d247aa125c48aa37be105dab2dd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4451418589142573162, guid: faf40d247aa125c48aa37be105dab2dd, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -554,13 +562,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 4661416533041549913, guid: faf40d247aa125c48aa37be105dab2dd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5678907824298939348, guid: faf40d247aa125c48aa37be105dab2dd, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6604239571364761141, guid: faf40d247aa125c48aa37be105dab2dd, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8139787812134885989, guid: faf40d247aa125c48aa37be105dab2dd, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
