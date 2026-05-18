@@ -1762,11 +1762,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &325318099 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 1926007895211159822, guid: d654e7ca47472434f94f06e464ef5dfa, type: 3}
-  m_PrefabInstance: {fileID: 1525791901}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &334201583 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5124634474094578137, guid: d654e7ca47472434f94f06e464ef5dfa, type: 3}
@@ -6597,18 +6592,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9021379127118570578, guid: d654e7ca47472434f94f06e464ef5dfa, type: 3}
-      propertyPath: control
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9021379127118570578, guid: d654e7ca47472434f94f06e464ef5dfa, type: 3}
-      propertyPath: animator
-      value: 
-      objectReference: {fileID: 325318099}
-    - target: {fileID: 9021379127118570578, guid: d654e7ca47472434f94f06e464ef5dfa, type: 3}
-      propertyPath: groundLayer.m_Bits
-      value: 776
-      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6175287888952342577, guid: d654e7ca47472434f94f06e464ef5dfa, type: 3}
     m_RemovedGameObjects: []
@@ -8845,17 +8828,9 @@ PrefabInstance:
       value: -1.09
       objectReference: {fileID: 0}
     - target: {fileID: 2665345248193730813, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
-      propertyPath: control
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2665345248193730813, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
       propertyPath: animator
       value: 
       objectReference: {fileID: 3128204666740214752}
-    - target: {fileID: 2665345248193730813, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
-      propertyPath: groundLayer.m_Bits
-      value: 776
-      objectReference: {fileID: 0}
     - target: {fileID: 3064455014942276449, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
       propertyPath: orthographic size
       value: 7.0527267
