@@ -3636,6 +3636,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Interactuable
       objectReference: {fileID: 0}
+    - target: {fileID: 2343999880894991040, guid: d0da49f31ec0765468ebd106629e33c1, type: 3}
+      propertyPath: m_Size.x
+      value: 11.985641
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343999880894991040, guid: d0da49f31ec0765468ebd106629e33c1, type: 3}
+      propertyPath: m_Size.y
+      value: 6.0530815
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343999880894991040, guid: d0da49f31ec0765468ebd106629e33c1, type: 3}
+      propertyPath: m_Offset.x
+      value: -1.7590947
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343999880894991040, guid: d0da49f31ec0765468ebd106629e33c1, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.49792528
+      objectReference: {fileID: 0}
     - target: {fileID: 5869206190260207101, guid: d0da49f31ec0765468ebd106629e33c1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 69.09

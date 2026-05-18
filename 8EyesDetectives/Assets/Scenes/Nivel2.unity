@@ -1470,6 +1470,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Interactuable (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2343999880894991040, guid: d0da49f31ec0765468ebd106629e33c1, type: 3}
+      propertyPath: m_Size.x
+      value: 9.458847
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343999880894991040, guid: d0da49f31ec0765468ebd106629e33c1, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.25417995
+      objectReference: {fileID: 0}
     - target: {fileID: 5869206190260207101, guid: d0da49f31ec0765468ebd106629e33c1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 71.4714
