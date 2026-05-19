@@ -586,6 +586,26 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6836089120458343172, guid: faf40d247aa125c48aa37be105dab2dd, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.033257317
+      objectReference: {fileID: 0}
+    - target: {fileID: 6836089120458343172, guid: faf40d247aa125c48aa37be105dab2dd, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.033257317
+      objectReference: {fileID: 0}
+    - target: {fileID: 6836089120458343172, guid: faf40d247aa125c48aa37be105dab2dd, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.03396219
+      objectReference: {fileID: 0}
+    - target: {fileID: 6836089120458343172, guid: faf40d247aa125c48aa37be105dab2dd, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278716425
+      objectReference: {fileID: 0}
+    - target: {fileID: 6836089120458343172, guid: faf40d247aa125c48aa37be105dab2dd, type: 3}
+      propertyPath: m_TextStyleHashCode
+      value: -1183493901
+      objectReference: {fileID: 0}
     - target: {fileID: 7051468376379080916, guid: faf40d247aa125c48aa37be105dab2dd, type: 3}
       propertyPath: m_text
       value: PRESS OPTION- START FOR CONTINUE
