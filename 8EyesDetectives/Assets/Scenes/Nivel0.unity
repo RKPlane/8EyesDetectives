@@ -2151,6 +2151,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 4573782195054079995, guid: faf40d247aa125c48aa37be105dab2dd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7051468376379080916, guid: faf40d247aa125c48aa37be105dab2dd, type: 3}
+      propertyPath: m_text
+      value: PRESS OPTION- START FOR CONTINUE OR G FOR RESET
+      objectReference: {fileID: 0}
     - target: {fileID: 8850570246293941238, guid: faf40d247aa125c48aa37be105dab2dd, type: 3}
       propertyPath: m_IsActive
       value: 1

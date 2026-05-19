@@ -73,7 +73,7 @@ public class MenuManager : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("Nivel0");
+        SceneManager.LoadScene("Tutorial");
     }
 
 }

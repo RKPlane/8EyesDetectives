@@ -462,6 +462,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 967171247814573191, guid: faf40d247aa125c48aa37be105dab2dd, type: 3}
+      propertyPath: m_margin.z
+      value: -67.37551
+      objectReference: {fileID: 0}
     - target: {fileID: 2002837211606531076, guid: faf40d247aa125c48aa37be105dab2dd, type: 3}
       propertyPath: m_Name
       value: Pantalla
@@ -482,11 +486,19 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 149.66
       objectReference: {fileID: 0}
+    - target: {fileID: 2840027291841582233, guid: faf40d247aa125c48aa37be105dab2dd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -11
+      objectReference: {fileID: 0}
     - target: {fileID: 3162205399603366789, guid: faf40d247aa125c48aa37be105dab2dd, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 323470652}
     - target: {fileID: 3193274922375395371, guid: faf40d247aa125c48aa37be105dab2dd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4261039934236424836, guid: faf40d247aa125c48aa37be105dab2dd, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -582,6 +594,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5928570114970557831, guid: faf40d247aa125c48aa37be105dab2dd, type: 3}
+      propertyPath: m_margin.x
+      value: -25.527252
+      objectReference: {fileID: 0}
     - target: {fileID: 6604239571364761141, guid: faf40d247aa125c48aa37be105dab2dd, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -608,7 +624,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7051468376379080916, guid: faf40d247aa125c48aa37be105dab2dd, type: 3}
       propertyPath: m_text
-      value: PRESS OPTION- START FOR CONTINUE
+      value: PRESS OPTION- START FOR CONTINUE OR G FOR RESET
       objectReference: {fileID: 0}
     - target: {fileID: 7051468376379080916, guid: faf40d247aa125c48aa37be105dab2dd, type: 3}
       propertyPath: m_margin.z
@@ -650,8 +666,13 @@ PrefabInstance:
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 8405458394996359605, guid: faf40d247aa125c48aa37be105dab2dd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -64
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5071094304428271245, guid: faf40d247aa125c48aa37be105dab2dd, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: faf40d247aa125c48aa37be105dab2dd, type: 3}

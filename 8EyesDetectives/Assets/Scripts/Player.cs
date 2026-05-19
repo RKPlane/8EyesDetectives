@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -22,7 +23,8 @@ public class Player : MonoBehaviour
 
     private InputAction moveAction;
     private InputAction jumpAction;
-    private float moveInput;
+	private InputAction resetAction;
+	private float moveInput;
 
     public bool control = false;
     public bool bFaceRight;
@@ -35,7 +37,8 @@ public class Player : MonoBehaviour
         var map = inputActions.FindActionMap("Player");
         moveAction = map.FindAction("Move");
         jumpAction = map.FindAction("SpiderJump");
-    }
+        resetAction = map.FindAction("Reset");
+	}
 
     void Update()
     {
@@ -49,8 +52,13 @@ public class Player : MonoBehaviour
             moveInput = 0f;
             tryingJump = false;
         }
-        
-    }
+
+		if (resetAction.WasPressedThisFrame()) 
+		{
+			RestartCurrentScene();
+		}
+
+	}
 
     void FixedUpdate()
     {
@@ -84,6 +92,12 @@ public class Player : MonoBehaviour
         if (moveInput > 0) transform.localScale = new Vector3(1, 1, 1);
         else if (moveInput < 0) transform.localScale = new Vector3(-1, 1, 1);
     }
+
+	public void RestartCurrentScene()
+	{
+		Scene currentScene = SceneManager.GetActiveScene();
+		SceneManager.LoadScene(currentScene.name);
+	}
 
 }
 
