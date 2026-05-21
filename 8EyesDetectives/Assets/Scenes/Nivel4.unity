@@ -1949,7 +1949,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MoveableVertical
   active: 0
   target: {fileID: 2003339144}
-<<<<<<< Updated upstream
 --- !u!1001 &603831303
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2051,7 +2050,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 44c27eb3a59ed3e48bbf76a1c5e7e128, type: 3}
-=======
 --- !u!1 &522935742
 GameObject:
   m_ObjectHideFlags: 0
@@ -2322,7 +2320,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
->>>>>>> Stashed changes
 --- !u!1001 &612474457
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3181,8 +3178,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
-<<<<<<< Updated upstream
-=======
 --- !u!1001 &742429549
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3338,7 +3333,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
->>>>>>> Stashed changes
 --- !u!1 &770652551
 GameObject:
   m_ObjectHideFlags: 0
@@ -8673,9 +8667,7 @@ SceneRoots:
   - {fileID: 195165797}
   - {fileID: 1167859726}
   - {fileID: 249436084}
-<<<<<<< Updated upstream
   - {fileID: 664182716}
-=======
   - {fileID: 473470226}
   - {fileID: 185785790}
   - {fileID: 1660198086}
@@ -8717,4 +8709,3 @@ SceneRoots:
   - {fileID: 1940356095}
   - {fileID: 97421456}
   - {fileID: 1157612517}
->>>>>>> Stashed changes
