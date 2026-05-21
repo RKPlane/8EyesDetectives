@@ -105,7 +105,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: aasdasdasdadadad
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7cb621ac51de36545abc9e46988f4fa0, type: 2}
   m_sharedMaterial: {fileID: 2045627416547755504, guid: 7cb621ac51de36545abc9e46988f4fa0, type: 2}
@@ -205,8 +205,8 @@ Transform:
   m_GameObject: {fileID: 861325772908851180}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.7708, y: 1.01308, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 1.8466, y: 1.0672, z: 0}
+  m_LocalScale: {x: 1.3482, y: 1.3482, z: 1.3482}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 397206018978412179}

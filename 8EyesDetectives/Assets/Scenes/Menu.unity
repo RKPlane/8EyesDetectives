@@ -278,6 +278,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
+--- !u!1 &1532139172 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2852567173954134834, guid: 33532a679993ba941b0e7f4e9d619c33, type: 3}
+  m_PrefabInstance: {fileID: 7471858166639058984}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1532139175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1532139172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29a8a04f56cc9e841b52c358799da4a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MusicScript
 --- !u!114 &1558361059 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1927612379102588032, guid: faf40d247aa125c48aa37be105dab2dd, type: 3}
@@ -742,7 +759,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2852567173954134834, guid: 33532a679993ba941b0e7f4e9d619c33, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1532139175}
   m_SourcePrefab: {fileID: 100100000, guid: 33532a679993ba941b0e7f4e9d619c33, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
