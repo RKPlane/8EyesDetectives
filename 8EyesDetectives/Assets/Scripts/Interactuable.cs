@@ -43,7 +43,7 @@ public class Interactuable : MonoBehaviour
             tmp.color = new Color(tmp.color.r, tmp.color.g, tmp.color.b, Mathf.Lerp(tmp.color.a, 1, lerpSpeed));
 
             // Detectar Input
-            if (m_useAction.WasPressedThisFrame())
+            if (m_useAction.WasPressedThisFrame() && MantisPlayer.instance.control)
             {
                 // Efecto del botón
                 switch (efecto)
