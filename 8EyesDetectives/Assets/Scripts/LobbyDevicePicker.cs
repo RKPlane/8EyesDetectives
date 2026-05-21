@@ -41,11 +41,11 @@ public class LobbyDevicePicker : MonoBehaviour
         InputDevice device = control.device;
 
         // Ignorar teclado/mouse si solo quieres mandos — borra este bloque si no.
-        if (device is not Gamepad)
+        /*if (device is not Gamepad)
         {
             InputSystem.onAnyButtonPress.CallOnce(OnButtonPressed);
             return;
-        }
+        }*/
 
         // Ignorar si este dispositivo ya está asignado.
         if (device == pickedDevices[0] || device == pickedDevices[1])
