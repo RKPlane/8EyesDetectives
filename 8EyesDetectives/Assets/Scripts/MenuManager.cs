@@ -8,22 +8,24 @@ public class MenuManager : MonoBehaviour
     public GameObject mainMenu;
     public GameObject menuOptions;
     public GameObject pauseMenu;
-
     public InputActionAsset inputActions;
     private InputAction pauseAction;
-
     private bool isPaused = false;
     public Button firstButton;
 
     void Awake()
     {
         var map = inputActions.FindActionMap("UI");
-
         pauseAction = map.FindAction("Pause");
-
-        firstButton.Select();
-
         map.Enable();
+    }
+
+    void Start()
+    {
+        if (firstButton != null)
+            firstButton.Select();
+        else
+            Debug.LogWarning("[MenuManager] firstButton no asignado — asígnalo en el Inspector.", this);
     }
 
     void OnEnable()
@@ -49,16 +51,17 @@ public class MenuManager : MonoBehaviour
     public void PauseGame()
     {
         if (isPaused) return;
-
         Time.timeScale = 0f;
         pauseMenu.SetActive(true);
         isPaused = true;
+
+        if (firstButton != null)
+            firstButton.Select();
     }
 
     public void ResumeGame()
     {
         if (!isPaused) return;
-
         Time.timeScale = 1f;
         pauseMenu.SetActive(false);
         isPaused = false;
