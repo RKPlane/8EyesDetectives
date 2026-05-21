@@ -110,8 +110,6 @@ public class Player : MonoBehaviour
         rb.angularVelocity = 0f;
     }
 
-
-
     public void RestartCurrentScene()
     {
         Scene currentScene = SceneManager.GetActiveScene();

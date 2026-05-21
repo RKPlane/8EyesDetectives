@@ -41,10 +41,14 @@ public class DialogueManager : MonoBehaviour
     private Player playerSpider;
     private MantisPlayer playerMantis;
 
+    [SerializeField] AudioClip advance;
+    private AudioSource audioSource;
+
     private bool dialogueActive = false;
 
     void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         if (Instance == null)
             Instance = this;
 
@@ -64,6 +68,7 @@ public class DialogueManager : MonoBehaviour
         if (currentLineText.Equals(currentMsg))
         {
             if (m_nextAction != null && m_nextAction.IsPressed())
+                audioSource.PlayOneShot(advance);
                 NextLine();
         }
         else

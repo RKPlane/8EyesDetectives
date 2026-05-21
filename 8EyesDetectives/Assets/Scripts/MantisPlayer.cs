@@ -50,10 +50,14 @@ public class MantisPlayer : MonoBehaviour
     private bool cutWebPressed;
     public bool control = false;
 
+    [SerializeField] AudioClip a_mantisCut;
+    private AudioSource audioSource;
+
     void Awake()
     {
         instance = this;
 
+        audioSource = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody2D>();
         layerDefaultObjetos = LayerMask.NameToLayer("Default");
         layerHeld = LayerMask.NameToLayer("NoCollision");
@@ -186,6 +190,11 @@ public class MantisPlayer : MonoBehaviour
 
     void TryCutWeb()
     {
+        if (isHolding) { return; }
+
+        audioSource.PlayOneShot(a_mantisCut);
+        animator.SetTrigger("Cut");
+
         Collider2D hit = Physics2D.OverlapCircle(transform.position, cutRadius, webLayer);
         if (hit == null) return;
 
@@ -206,6 +215,7 @@ public class MantisPlayer : MonoBehaviour
 
     public void Coger(Collider2D objeto)
     {
+        animator.SetTrigger("Grab");
         isHolding = true;
         heldObject = objeto.gameObject;
         heldObject.transform.parent = carryCollider.transform;
@@ -215,6 +225,7 @@ public class MantisPlayer : MonoBehaviour
 
     private void Lanzar()
     {
+        animator.SetTrigger("Launch");
         GameObject objeto = heldObject;
         Soltar();
         objeto.GetComponent<Rigidbody2D>().linearVelocityY = throwForce + Mathf.Clamp(rb.linearVelocityY, 0, throwForce * maxThrowMultiplier);

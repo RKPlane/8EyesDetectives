@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -33,6 +34,9 @@ public class WebController : MonoBehaviour
 
     int attachedIndex = -1;
 
+    [SerializeField] AudioClip a_WebThrow;
+    private AudioSource audioSource;
+
     public bool IsAnyAttached =>
         attachedIndex >= 0 &&
         attachedIndex < ropes.Length &&
@@ -41,6 +45,7 @@ public class WebController : MonoBehaviour
 
     void Awake()
     {
+            audioSource = GetComponent<AudioSource>();
             rb = GetComponent<Rigidbody2D>();
             player = GetComponent<Player>();
 
@@ -144,6 +149,7 @@ public class WebController : MonoBehaviour
             return;
         }
 
+        audioSource.PlayOneShot(a_WebThrow);
         ropes[slot].Build(hit.point, rb);
         renderers[slot]?.Enable();
         attachedIndex = slot;
