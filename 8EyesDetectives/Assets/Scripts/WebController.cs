@@ -83,12 +83,18 @@ public class WebController : MonoBehaviour
             detachPressed = false;
             TryDetach();
         }
+
+        if (!player.control)
+            return;
     }
 
     void FixedUpdate()
     {
         if (IsAnyAttached)
             ApplySwingForce(ropes[attachedIndex]);
+
+        if (!player.control)
+            return;
     }
 
     void TryAttach()

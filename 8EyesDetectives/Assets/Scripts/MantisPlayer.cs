@@ -61,7 +61,11 @@ public class MantisPlayer : MonoBehaviour
 
     public void OnMove(InputValue value)
     {
-        if (!control) return;
+        if (!control)
+        {
+            moveInput = Vector2.zero;
+            return;
+        }
 
         moveInput = value.Get<Vector2>();
     }
@@ -70,7 +74,8 @@ public class MantisPlayer : MonoBehaviour
     {
         if (!control) return;
 
-        tryingJump = value.isPressed;
+        if (value.isPressed)
+            tryingJump = true;
     }
 
     public void OnPickUp(InputValue value)
@@ -148,6 +153,12 @@ public class MantisPlayer : MonoBehaviour
                 heldObject.transform.position,
                 carryCheck.position,
                 lerpSpeed);
+
+        if (tryingJump && isGrounded)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            tryingJump = false; // 🔥 clave
+        }
     }
 
     // ── Pick-up helpers ───────────────────────────────────────────────────
@@ -207,5 +218,14 @@ public class MantisPlayer : MonoBehaviour
         GameObject objeto = heldObject;
         Soltar();
         objeto.GetComponent<Rigidbody2D>().linearVelocityY = throwForce + Mathf.Clamp(rb.linearVelocityY, 0, throwForce * maxThrowMultiplier);
+    }
+
+    public void ForceStop()
+    {
+        moveInput = Vector2.zero;
+        tryingJump = false;
+
+        rb.linearVelocity = Vector2.zero;
+        rb.angularVelocity = 0f;
     }
 }

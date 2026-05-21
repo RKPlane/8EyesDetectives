@@ -543,7 +543,7 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: a0c966b0-ea88-41c9-826f-9ee70a31c49f
     m_ActionName: 'Mantis/CutWeb[/Keyboard/f]'
-  m_NeverAutoSwitchControlSchemes: 0
+  m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Mantis
   m_SplitScreenIndex: -1

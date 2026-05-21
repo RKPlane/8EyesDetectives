@@ -32,7 +32,11 @@ public class Player : MonoBehaviour
     // ACTION: Move
     public void OnMove(InputValue value)
     {
-        if (!control) return;
+        if (!control)
+        {
+            moveInput = Vector2.zero;
+            return;
+        }
 
         moveInput = value.Get<Vector2>();
     }
@@ -77,6 +81,12 @@ public class Player : MonoBehaviour
             animator.SetFloat("Speed", moveInput.x * moveInput.x);
         }
 
+        if (!control)
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
         if (tryingJump && isGrounded && !isSwinging)
         {
             rb.linearVelocity =
@@ -90,6 +100,17 @@ public class Player : MonoBehaviour
         else if (moveInput.x < 0)
             transform.localScale = new Vector3(-1, 1, 1);
     }
+
+    public void ForceStop()
+    {
+        moveInput = Vector2.zero;
+        tryingJump = false;
+
+        rb.linearVelocity = Vector2.zero;
+        rb.angularVelocity = 0f;
+    }
+
+
 
     public void RestartCurrentScene()
     {

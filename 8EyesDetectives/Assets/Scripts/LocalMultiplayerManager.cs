@@ -1,60 +1,53 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class LocalMultiplayerManager : MonoBehaviour
 {
-    public GameObject spiderPrefab;
-    public GameObject mantisPrefab;
-
-    private bool spiderSpawned;
-    private bool mantisSpawned;
+    public Player spider;
+    public MantisPlayer mantis;
 
     private Gamepad spiderPad;
     private Gamepad mantisPad;
 
     void Update()
     {
-        foreach (Gamepad g in Gamepad.all)
+        foreach (var pad in Gamepad.all)
         {
-            if (!g.startButton.wasPressedThisFrame)
-                continue;
-
-            // Si este mando ya está usado, ignorar
-            if (g == spiderPad || g == mantisPad)
-                continue;
-
-            // Asignar Player 1 (Spider)
-            if (!spiderSpawned)
+            if (pad.startButton.wasPressedThisFrame)
             {
-                spiderPad = g;
-
-                PlayerInput.Instantiate(
-                    spiderPrefab,
-                    controlScheme: "Gamepad",
-                    pairWithDevice: g
-                );
-
-                spiderSpawned = true;
-                Debug.Log($"Spider joined with {g.displayName}");
-                continue;
-            }
-
-            // Asignar Player 2 (Mantis)
-            if (!mantisSpawned)
-            {
-                mantisPad = g;
-
-                PlayerInput.Instantiate(
-                    mantisPrefab,
-                    controlScheme: "Gamepad",
-                    pairWithDevice: g
-                );
-
-                mantisSpawned = true;
-                Debug.Log($"Mantis joined with {g.displayName}");
-                continue;
+                if (spiderPad == null)
+                {
+                    AssignSpider(pad);
+                }
+                else if (mantisPad == null && pad != spiderPad)
+                {
+                    AssignMantis(pad);
+                }
             }
         }
+    }
+
+    void AssignSpider(Gamepad pad)
+    {
+        spiderPad = pad;
+
+        var input = spider.GetComponent<PlayerInput>();
+        input.SwitchCurrentControlScheme("Gamepad", pad);
+
+        spider.control = true;
+
+        Debug.Log("Spider assigned to " + pad.name);
+    }
+
+    void AssignMantis(Gamepad pad)
+    {
+        mantisPad = pad;
+
+        var input = mantis.GetComponent<PlayerInput>();
+        input.SwitchCurrentControlScheme("Gamepad", pad);
+
+        mantis.control = true;
+
+        Debug.Log("Mantis assigned to " + pad.name);
     }
 }

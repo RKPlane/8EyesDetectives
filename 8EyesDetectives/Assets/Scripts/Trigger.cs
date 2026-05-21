@@ -61,25 +61,40 @@ public class Trigger : MonoBehaviour
 
     IEnumerator RutinaFade()
     {
-        //Fade a negro
         yield return Fade(0, 1);
 
-        //Efecto que queremos ejecutar invisiblemente
+        Player playerSpider = FindFirstObjectByType<Player>();
+        MantisPlayer playerMantis = FindFirstObjectByType<MantisPlayer>();
+
         switch (tipoTrigger)
         {
             case TipoTrigger.ZonaMuerte:
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                 break;
+
             case TipoTrigger.Conversacion:
-                Player.instance.transform.position = new Vector3(transform.position.x - playerSeparation, transform.position.y, transform.position.z);
-                MantisPlayer.instance.transform.position = new Vector3(transform.position.x + playerSeparation, transform.position.y, transform.position.z);
-                MantisPlayer.instance.transform.localScale = new Vector3(-1, 1, 1);
-                DialogueManager.Instance.StartConversation(conversation);
+
+                if (playerSpider != null && playerMantis != null)
+                {
+                    playerSpider.transform.position =
+                        new Vector3(transform.position.x - playerSeparation, transform.position.y-1f, 0);
+
+                    playerMantis.transform.position =
+                        new Vector3(transform.position.x + playerSeparation, transform.position.y-1f, 0);
+
+                    playerMantis.transform.localScale = new Vector3(-1, 1, 1);
+
+                    if (DialogueManager.Instance != null)
+                        DialogueManager.Instance.StartConversation(conversation);
+                }
+                else
+                {
+                    Debug.LogError("Players no encontrados en RutinaFade()");
+                }
+
                 break;
         }
 
-
-        //Fade a transparente
         yield return Fade(1, 0);
     }
 

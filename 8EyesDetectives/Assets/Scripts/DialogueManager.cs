@@ -1,7 +1,6 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Device;
 using UnityEngine.InputSystem;
 
 public class DialogueManager : MonoBehaviour
@@ -12,171 +11,258 @@ public class DialogueManager : MonoBehaviour
         Lore
     }
 
-    //Referencia global al sistema de di�logos
     public static DialogueManager Instance;
 
-    //Variables configurables
-    public float letterSpeed = 0.1f; //Cada cuanto tiempo (en segundos) se suma una letra al mensaje actual
-    private float letterTimer = 0.0f; //Contador interno del tiempo que pasa
-    //public DialogueConversation prueba; //TESTEO
+    [Header("Settings")]
+    public float letterSpeed = 0.1f;
+    private float letterTimer = 0.0f;
 
-    //Input y prefabs
+    [Header("Input")]
     public InputActionAsset inputActions;
     private InputAction m_nextAction;
+
+    [Header("Prefabs")]
     public GameObject dialoguePrefabL;
     public GameObject dialoguePrefabR;
 
-    //Diccionario que asocia cada ID de personaje a su "boca"
     private Dictionary<Characters, Transform> characterData = new Dictionary<Characters, Transform>();
 
-    //Control
     public bool running = false;
 
-    //Funcionamiento interno
-    private string currentMsg = string.Empty; //String que se dibuja en pantalla
-    private DialogueConversation currentConversation = null; //Conversaci�n en curso
-    private int currentLine = 0; //�ndice de la l�nea que estamos mostrando desde la lista de DialogueConversation actual
-    private int currentChar = 0; //Siguiente letra a sumar para avanzar en el dibujado de toda la l�nea actual
-    private string currentLineText = string.Empty; //El texto completo de la l�nea que se quiere dibujar
+    private string currentMsg = string.Empty;
+    private DialogueConversation currentConversation = null;
+    private int currentLine = 0;
+    private int currentChar = 0;
+    private string currentLineText = string.Empty;
 
-    private GameObject currentInstance = null; //Instancia del prefab actual
+    private GameObject currentInstance = null;
     private TextMeshPro tmp;
+
+    private Player playerSpider;
+    private MantisPlayer playerMantis;
+
+    private bool dialogueActive = false;
 
     void Awake()
     {
-        //Guardar referencia global a DialogueManager
         if (Instance == null)
-        {
             Instance = this;
-        }
+
         m_nextAction = InputSystem.actions.FindAction("Next");
+    }
+
+    void Start()
+    {
+        playerSpider = FindFirstObjectByType<Player>();
+        playerMantis = FindFirstObjectByType<MantisPlayer>();
     }
 
     void Update()
     {
-        if (running)
+        if (!running) return;
+
+        if (currentLineText.Equals(currentMsg))
         {
-            if (currentLineText.Equals(currentMsg))
+            if (m_nextAction != null && m_nextAction.IsPressed())
+                NextLine();
+        }
+        else
+        {
+            letterTimer += Time.deltaTime;
+
+            if (letterTimer > letterSpeed)
             {
-                //Avanzar de l�nea al presionar el bot�n de "Next"
-                if (m_nextAction.IsPressed())
-                {
-                    NextLine();
-                }
-            }
-            else
-            {
-                //Ir sumando letras al mensaje en pantalla
-                letterTimer += Time.deltaTime;
-                if (letterTimer > letterSpeed)
-                {
-                    AddLetter();
-                    letterTimer = 0.0f;
-                }
+                AddLetter();
+                letterTimer = 0f;
             }
         }
     }
 
-    private void LateUpdate()
+    void LateUpdate()
     {
         if (running)
-        {
             UpdatePosition();
-        }
     }
 
     private void AddLetter()
     {
-        //Saltarse espacios para no interrumpir ritmo del di�logo
-        var letterSearch = true;
-        var nextLetter = string.Empty;
-        while (letterSearch)
+        if (currentLineText == null || currentChar >= currentLineText.Length)
+            return;
+
+        string nextLetter = currentLineText.Substring(currentChar, 1);
+
+        if (nextLetter != " ")
         {
-            nextLetter = currentLineText.Substring(currentChar, 1);
-            if (nextLetter != " ")
-            {
-                letterSearch = false;
-            }
-            else
-            {
-                currentMsg += nextLetter;
-                currentChar++;
-            }
+            currentMsg += nextLetter;
+            currentChar++;
         }
-        //Sumar la letra
-        currentMsg += nextLetter;
-        tmp.text = currentMsg;
-        currentChar++;
+        else
+        {
+            currentMsg += nextLetter;
+            currentChar++;
+        }
+
+        if (tmp != null)
+            tmp.text = currentMsg;
     }
 
-    #region Funciones p�blicas de control
+    // ───────────────────────────────────────────────
+    // START / NEXT / END
+    // ───────────────────────────────────────────────
+
     public void StartConversation(DialogueConversation conversation)
     {
-        if (currentConversation == null)
-        {
-            TogglePlayerControl();
-            running = true;
-            currentInstance = Instantiate(CheckSide()); //Instanciamos el prefab de di�logo con TMP y SpriteRenderer
-            tmp = currentInstance.GetComponentInChildren<TextMeshPro>();
+        if (currentConversation != null) return;
 
-            currentConversation = conversation; //Cargamos la conversaci�n 
-            currentLineText = currentConversation.lines[currentLine].text; //Cargamos el texto de la primera l�nea
-        }
+        currentConversation = conversation;
+        running = true;
+
+        SetDialogueState(true);
+
+        currentInstance = Instantiate(CheckSide());
+        tmp = currentInstance.GetComponentInChildren<TextMeshPro>();
+
+        currentLine = 0;
+        currentChar = 0;
+        currentMsg = string.Empty;
+
+        currentLineText = currentConversation.lines[currentLine].text;
     }
 
     public void NextLine()
     {
-        tmp.text = string.Empty; //Vaciar mensaje en pantalla
-        currentChar = 0; //Reiniciar contador de letras
-        currentLine++; //Avanzar el contador de l�nea
-        currentMsg = string.Empty; //Limpiamos el string que se muestra en pantalla
-        //Si llegamos al final de la lista de la conversaci�n actual, la terminamos
-        if (currentLine == currentConversation.lines.Count)
+        currentChar = 0;
+        currentMsg = string.Empty;
+        letterTimer = 0f;
+
+        currentLine++;
+
+        if (currentLine >= currentConversation.lines.Count)
         {
             EndConversation();
+            return;
         }
-        else
-        {
-            //Si no estamos en el final, cargamos siguiente di�logo
-            currentLineText = currentConversation.lines[currentLine].text; //Cargamos el texto de la l�nea actual
-        }
+
+        currentLineText = currentConversation.lines[currentLine].text;
+
+        if (tmp != null)
+            tmp.text = "";
     }
 
     public void EndConversation()
     {
-        TogglePlayerControl();
         running = false;
+
+        SetDialogueState(false);
+
+        Unfreeze(playerSpider);
+        Unfreeze(playerMantis);
+
         currentLine = 0;
+        currentChar = 0;
         currentConversation = null;
-        Destroy(currentInstance);
+
+        if (currentInstance != null)
+            Destroy(currentInstance);
     }
-    #endregion
+
+    // ───────────────────────────────────────────────
+    // PLAYER FREEZE SYSTEM
+    // ───────────────────────────────────────────────
+
+    private void SetDialogueState(bool active)
+    {
+        dialogueActive = active;
+
+        if (playerSpider != null)
+        {
+            playerSpider.control = !active;
+            Freeze(playerSpider.GetComponent<Rigidbody2D>());
+        }
+
+        if (playerMantis != null)
+        {
+            playerMantis.control = !active;
+            Freeze(playerMantis.GetComponent<Rigidbody2D>());
+        }
+    }
+
+    private void FreezeAll()
+    {
+        Freeze(playerSpider);
+        Freeze(playerMantis);
+    }
+
+    private void Unfreeze(MonoBehaviour player)
+    {
+        if (player == null) return;
+
+        Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.bodyType = RigidbodyType2D.Dynamic;
+        }
+    }
+
+    private void Freeze(MonoBehaviour player)
+    {
+        if (player == null) return;
+
+        Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
+
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+        }
+
+        Player p1 = player as Player;
+        if (p1 != null)
+            p1.ForceStop();
+
+        MantisPlayer p2 = player as MantisPlayer;
+        if (p2 != null)
+            p2.ForceStop();
+    }
+
+    private void Freeze(Rigidbody2D rb)
+    {
+        if (rb == null) return;
+
+        rb.linearVelocity = Vector2.zero;
+        rb.angularVelocity = 0f;
+    }
+
+    // ───────────────────────────────────────────────
+    // POSITIONING
+    // ───────────────────────────────────────────────
+
+    private void UpdatePosition()
+    {
+        if (currentConversation == null || currentInstance == null) return;
+
+        var personaje = currentConversation.lines[currentLine].characterName;
+
+        if (characterData.ContainsKey(personaje))
+        {
+            currentInstance.transform.position = characterData[personaje].position;
+        }
+
+        if (Camera.main != null)
+            currentInstance.transform.forward = Camera.main.transform.forward;
+    }
+
+    private GameObject CheckSide()
+    {
+        return dialoguePrefabR;
+    }
+
+    // ───────────────────────────────────────────────
+    // EXTERNAL API
+    // ───────────────────────────────────────────────
 
     public void LoadMouth(Characters character, Transform mouth)
     {
         characterData[character] = mouth;
     }
-
-    private void UpdatePosition()
-    {
-        var personaje = currentConversation.lines[currentLine].characterName;
-        if (characterData.ContainsKey(personaje))
-        {
-            currentInstance.transform.position = characterData[personaje].position;
-        }
-        currentInstance.transform.forward = Camera.main.transform.forward;
-    }
-
-    private GameObject CheckSide()
-    {
-        //L�gica que decide si el dialogo debe tirarse a la izquierda o a la derecha (depende de la c�mara)
-        return dialoguePrefabR;
-    }
-
-    private void TogglePlayerControl()
-    {
-        MantisPlayer.instance.control = !MantisPlayer.instance.control;
-        Player.instance.control = !Player.instance.control;
-    }
-
 }
