@@ -14,7 +14,7 @@ public class DialogueManager : MonoBehaviour
     public static DialogueManager Instance;
 
     [Header("Settings")]
-    public float letterSpeed = 0.1f;
+    private float letterSpeed = 0.05f;
     private float letterTimer = 0.0f;
 
     [Header("Input")]
@@ -191,6 +191,12 @@ public class DialogueManager : MonoBehaviour
     {
         Freeze(playerSpider);
         Freeze(playerMantis);
+    }
+
+    public void UnfreezeAll()
+    {
+        Unfreeze(playerSpider);
+        Unfreeze(playerMantis);
     }
 
     private void Unfreeze(MonoBehaviour player)

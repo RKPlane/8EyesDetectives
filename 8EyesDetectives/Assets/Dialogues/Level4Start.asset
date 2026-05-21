@@ -10,11 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3432c78acb384d24d8b755bd6161c400, type: 3}
-  m_Name: Level1Start
+  m_Name: Level4Start
   m_EditorClassIdentifier: Assembly-CSharp::DialogueConversation
   lines:
-  - characterName: 0
-    text: A juzgar por su forma de moverse, sospecho que estamos persiguiendo a un
-      escarabajo
   - characterName: 1
-    text: "\xBFSeguro que no lo dices por sus cuernos?"
+    text: "Aqu\xED apesta a escarabajo, jefa"
+  - characterName: 0
+    text: "Sin duda, debemos haberlo acorralado. Si proseguimos por esta zona, seguro
+      que damos con \xE9l"
+  - characterName: 1
+    text: "\xA1Escarabajoe, ERES NUESTRO!"

@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3432c78acb384d24d8b755bd6161c400, type: 3}
-  m_Name: Level1Start
+  m_Name: Level0Start
   m_EditorClassIdentifier: Assembly-CSharp::DialogueConversation
   lines:
   - characterName: 0
-    text: A juzgar por su forma de moverse, sospecho que estamos persiguiendo a un
-      escarabajo
+    text: "\xA1R\xE1pido, Sakura, el sospechoso ha entrado por esa puerta!"
   - characterName: 1
-    text: "\xBFSeguro que no lo dices por sus cuernos?"
+    text: "Esta zona de la ciudad es un caos ahora mismo, ten cuidado compa\xF1era"
+  - characterName: 0
+    text: "Lo mismo le digo, amigo, \xA1en marcha!"
