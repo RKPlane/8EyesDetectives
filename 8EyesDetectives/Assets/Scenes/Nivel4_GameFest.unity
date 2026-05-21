@@ -3123,7 +3123,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6332017722885166908, guid: d0da49f31ec0765468ebd106629e33c1, type: 3}
       propertyPath: escena
-      value: Nivel4
+      value: Ending
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
