@@ -103,7 +103,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f461110e062231a48939dcd11965d733, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Paralax
-  player1: {fileID: 0}
-  player2: {fileID: 0}
+  cam: {fileID: 0}
   parallaxX: 0.5
   parallaxY: 0.5

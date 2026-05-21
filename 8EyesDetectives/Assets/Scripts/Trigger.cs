@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -34,27 +35,41 @@ public class Trigger : MonoBehaviour
     {
         if (!triggered)
         {
-            if (collision.gameObject.CompareTag("Player") && PlayersAtTrigger() >= playerRequirement)
+            if (tipoTrigger == TipoTrigger.Conversacion)
             {
-                Debug.Log(PlayersAtTrigger());
-                triggered = true;
-                Debug.Log("[Trigger] Activated");
-                StartCoroutine(RutinaFade());
+                if (collision.gameObject.CompareTag("Player") && PlayersAtTrigger() >= playerRequirement)
+                {
+                    DialogueManager.Instance.FreezeAll();
+                    Debug.Log(PlayersAtTrigger());
+                    triggered = true;
+                    Debug.Log("[Trigger] Activated");
+                    StartCoroutine(RutinaFade());
+                }
             }
-
-            if (collision.gameObject.CompareTag("Caja"))
+            else
             {
-                triggered = true;
-                Debug.Log("[Trigger] Activated");
-                StartCoroutine(RutinaFade());
-            }
+                if (collision.gameObject.CompareTag("Player") && PlayersAtTrigger() >= playerRequirement)
+                {
+                    Debug.Log(PlayersAtTrigger());
+                    triggered = true;
+                    Debug.Log("[Trigger] Activated");
+                    StartCoroutine(RutinaFade());
+                }
 
-            if (collision.gameObject.CompareTag("Carryable"))
-            {
-                triggered = true;
-                Debug.Log("[Trigger] Activated");
-                StartCoroutine(RutinaFade());
+                if (collision.gameObject.CompareTag("Caja"))
+                {
+                    triggered = true;
+                    Debug.Log("[Trigger] Activated");
+                    StartCoroutine(RutinaFade());
+                }
 
+                if (collision.gameObject.CompareTag("Carryable"))
+                {
+                    triggered = true;
+                    Debug.Log("[Trigger] Activated");
+                    StartCoroutine(RutinaFade());
+
+                }
             }
         }
 	}
@@ -116,18 +131,19 @@ public class Trigger : MonoBehaviour
     }
     private int PlayersAtTrigger()
     {
-        // Comprobación de Players dentro del Trigger
         Collider2D[] results = new Collider2D[30];
         int colliders = col.Overlap(ContactFilter2D.noFilter, results);
-        int playerAmount = 0;
+
+        HashSet<GameObject> players = new HashSet<GameObject>();
+
         for (int i = 0; i < colliders; i++)
         {
-            if (results[i].gameObject.CompareTag("Player"))
+            if (results[i].CompareTag("Player"))
             {
-                playerAmount++;
+                players.Add(results[i].transform.root.gameObject);
             }
         }
-        Debug.Log(playerAmount);
-        return playerAmount;
+
+        return players.Count;
     }
 }

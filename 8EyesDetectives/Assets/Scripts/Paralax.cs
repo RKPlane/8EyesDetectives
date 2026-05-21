@@ -1,52 +1,38 @@
 using UnityEngine;
 
-public class Paralax: MonoBehaviour
+public class Parallax : MonoBehaviour
 {
-    [Header("Players")]
-    public Transform player1;
-    public Transform player2;
+    [Header("Camera")]
+    public Transform cam;
 
     [Header("Parallax")]
     [Range(0f, 1f)]
-    public float parallaxX = 0.5f;
+    public float parallaxX = 0.2f;
 
     [Range(0f, 1f)]
-    public float parallaxY = 0.5f;
+    private float parallaxY = 0f;
 
-    private Vector3 lastCenterPosition;
+    private Vector3 lastCamPosition;
 
     void Start()
     {
-        if (player1 == null || player2 == null)
-        {
-            Debug.LogError("Faltan referencias de players.");
-            enabled = false;
-            return;
-        }
+        if (cam == null)
+            cam = Camera.main.transform;
 
-        lastCenterPosition = GetCenterPosition();
+        lastCamPosition = cam.position;
     }
 
     void LateUpdate()
     {
-        Vector3 currentCenter = GetCenterPosition();
+        Vector3 camMovement = cam.position - lastCamPosition;
 
-        // Movimiento entre frames
-        Vector3 deltaMovement = currentCenter - lastCenterPosition;
-
-        // Aplicar parallax
+        // Aplicar solo parallax horizontal estable
         transform.position += new Vector3(
-            deltaMovement.x * parallaxX,
-            deltaMovement.y * parallaxY,
+            camMovement.x * parallaxX,
+            camMovement.y * parallaxY,
             0f
         );
 
-        // Guardar centro actual
-        lastCenterPosition = currentCenter;
-    }
-
-    Vector3 GetCenterPosition()
-    {
-        return (player1.position + player2.position) / 2f;
+        lastCamPosition = cam.position;
     }
 }

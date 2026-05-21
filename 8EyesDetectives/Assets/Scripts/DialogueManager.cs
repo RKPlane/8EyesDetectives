@@ -187,7 +187,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    private void FreezeAll()
+    public void FreezeAll()
     {
         Freeze(playerSpider);
         Freeze(playerMantis);
