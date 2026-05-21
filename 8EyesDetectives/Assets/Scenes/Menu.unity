@@ -678,10 +678,17 @@ PrefabInstance:
       propertyPath: m_margin.x
       value: -25.527252
       objectReference: {fileID: 0}
+<<<<<<< Updated upstream
     - target: {fileID: 6220916221049586198, guid: faf40d247aa125c48aa37be105dab2dd, type: 3}
       propertyPath: firstButton
       value: 
       objectReference: {fileID: 1101135429}
+=======
+    - target: {fileID: 6485249597464735717, guid: faf40d247aa125c48aa37be105dab2dd, type: 3}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 2800000, guid: a7b2a9770ca7a2b479449a1f45d3d676, type: 3}
+>>>>>>> Stashed changes
     - target: {fileID: 6604239571364761141, guid: faf40d247aa125c48aa37be105dab2dd, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
