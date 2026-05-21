@@ -68,8 +68,10 @@ public class DialogueManager : MonoBehaviour
         if (currentLineText.Equals(currentMsg))
         {
             if (m_nextAction != null && m_nextAction.IsPressed())
+            {
                 audioSource.PlayOneShot(advance);
                 NextLine();
+            }
         }
         else
         {

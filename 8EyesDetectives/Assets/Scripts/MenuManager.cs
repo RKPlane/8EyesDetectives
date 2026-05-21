@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
@@ -12,12 +13,15 @@ public class MenuManager : MonoBehaviour
     private InputAction pauseAction;
 
     private bool isPaused = false;
+    public Button firstButton;
 
     void Awake()
     {
         var map = inputActions.FindActionMap("UI");
 
         pauseAction = map.FindAction("Pause");
+
+        firstButton.Select();
 
         map.Enable();
     }
