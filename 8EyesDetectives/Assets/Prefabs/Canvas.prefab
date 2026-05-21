@@ -472,7 +472,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 139.0405}
+  m_AnchoredPosition: {x: 0, y: 146.9}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8177510863713952284
@@ -880,7 +880,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -87.445015, y: -69.27998}
+  m_AnchoredPosition: {x: -87.445015, y: -98}
   m_SizeDelta: {x: 198.89, y: 42.56}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6999296004034886024
@@ -914,19 +914,23 @@ MonoBehaviour:
   m_text: 'JOYSTIC L3
 
 
-    LB AND RB
+    JOYSTIC R3
 
 
-    A
+    RT / R2
 
 
-    X
+    LT / L2
 
 
-    B
+    A / X
 
 
-    JOYSTIC R3'
+    D-Pad
+    Right
+
+
+    D-Pad Left'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1711,7 +1715,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -5.0948, y: 149.66}
+  m_AnchoredPosition: {x: -5.0948, y: 169.2}
   m_SizeDelta: {x: 476.1895, y: 36.68}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9196115223959436802
@@ -1742,7 +1746,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: PRESS OPTION- START FOR CONTINUE
+  m_text: PRESS OPTION- START TO CONTINUE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2084,7 +2088,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -199, y: 100}
+  m_AnchoredPosition: {x: -187, y: 113}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2446190505185511137
@@ -2251,22 +2255,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'JOYSTIC L3
-
-
-    LB AND RB
-
-
-    A
-
-
-    X
-
-
-    B
-
-
-'
+  m_text: "JOYSTIC L3\n\nY / \u25B2 \n\nA / X\n\nX / \u25A0\n\nB / \u25CB\n\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3580,16 +3569,17 @@ MonoBehaviour:
   m_text: 'MOVE
 
 
-    SHOOT WEBS
+    CUT WEBS
 
 
     JUMP
 
 
-    NEXT DIALOGUE
+    PICK / THROW ITEM
 
 
-    PREVIOUS DIALOGUE
+    THROW UP
+    ITEM
 
 
 '
@@ -3697,7 +3687,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -265, y: -73}
+  m_AnchoredPosition: {x: -265, y: -101}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8493573730405381804
@@ -3731,20 +3721,23 @@ MonoBehaviour:
   m_text: 'MOVE
 
 
+    POINT TO
+
+
     SHOOT WEBS
+
+
+    DETACH WEBS
 
 
     JUMP
 
 
-    NEXT DIALOGUE
+    NEXT
+    DIALOGUE
 
 
-    PREVIOUS DIALOGUE
-
-
-    POINT
-    TO'
+    PREVIOUS DIALOGUE'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3985,8 +3978,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 800, y: 450}
+  m_AnchoredPosition: {x: 6.5029, y: -3.6126}
+  m_SizeDelta: {x: 870.8082, y: 515.028}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7154565389326936724
 CanvasRenderer:
