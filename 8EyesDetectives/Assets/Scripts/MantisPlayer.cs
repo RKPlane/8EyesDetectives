@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(PlayerInput))]
 public class MantisPlayer : MonoBehaviour
 {
     static public MantisPlayer instance;
@@ -14,7 +15,6 @@ public class MantisPlayer : MonoBehaviour
 
     // ── Input ─────────────────────────────────────────────────────────────
     [Header("Input")]
-    public InputActionAsset inputActions;
     private bool tryingJump = false;
 
     // ── Cut web ───────────────────────────────────────────────────────────
@@ -44,9 +44,11 @@ public class MantisPlayer : MonoBehaviour
     public Animator animator;
 
     // ── Internal state ────────────────────────────────────────────────────
+    private Vector2 moveInput;
+    private bool pickUpPressed;
+    private bool throwPressed;
+    private bool cutWebPressed;
     public bool control = false;
-    private float moveInput;
-    private InputAction moveAction, jumpAction, pickUpAction, throwAction, cutWebAction;
 
     void Awake()
     {
@@ -55,43 +57,76 @@ public class MantisPlayer : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         layerDefaultObjetos = LayerMask.NameToLayer("Default");
         layerHeld = LayerMask.NameToLayer("NoCollision");
-
-        var map = inputActions.FindActionMap("Mantis");
-        moveAction = map.FindAction("Move");
-        jumpAction = map.FindAction("Jump");
-        pickUpAction = map.FindAction("PickUp");
-        throwAction = map.FindAction("Throw");
-        cutWebAction = map.FindAction("CutWeb");
     }
 
-    void OnEnable() => inputActions.FindActionMap("Mantis").Enable();
-    void OnDisable() => inputActions.FindActionMap("Mantis").Disable();
+    public void OnMove(InputValue value)
+    {
+        if (!control) return;
+
+        moveInput = value.Get<Vector2>();
+    }
+
+    public void OnJump(InputValue value)
+    {
+        if (!control) return;
+
+        tryingJump = value.isPressed;
+    }
+
+    public void OnPickUp(InputValue value)
+    {
+        if (!control) return;
+
+        if (value.isPressed)
+            pickUpPressed = true;
+    }
+
+    public void OnThrow(InputValue value)
+    {
+        if (!control) return;
+
+        if (value.isPressed)
+            throwPressed = true;
+    }
+
+    public void OnCutWeb(InputValue value)
+    {
+        if (!control) return;
+
+        if (value.isPressed)
+            cutWebPressed = true;
+    }
 
     void Update()
     {
-        if (control) {
-            moveInput = moveAction.ReadValue<Vector2>().x;
-
-            if (pickUpAction.WasPressedThisFrame())
-            {
-                if (isHolding) Soltar();
-                else TryPickUp();
-            }
-
-            if (throwAction.WasPressedThisFrame() && isHolding)
-                Lanzar();
-
-            if (cutWebAction.WasPressedThisFrame())
-                TryCutWeb();
-
-            tryingJump = jumpAction.IsPressed();
-        } else
+        if (!control)
         {
-            //Si el control se quita mientras moveInput tiene un valor, el valor nunca volvería a cero, por eso hace falta esta línea
-            moveInput = 0f;
+            moveInput = Vector2.zero;
             tryingJump = false;
+            return;
         }
 
+        if (pickUpPressed)
+        {
+            pickUpPressed = false;
+
+            if (isHolding) Soltar();
+            else TryPickUp();
+        }
+
+        if (throwPressed)
+        {
+            throwPressed = false;
+
+            if (isHolding)
+                Lanzar();
+        }
+
+        if (cutWebPressed)
+        {
+            cutWebPressed = false;
+            TryCutWeb();
+        }
     }
 
     void FixedUpdate()
@@ -99,14 +134,14 @@ public class MantisPlayer : MonoBehaviour
         bool isGrounded = Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0f, groundLayer);
         animator.SetBool("isJumping", !isGrounded);
 
-        rb.linearVelocity = new Vector2(moveInput * speed, rb.linearVelocity.y);
-        animator.SetFloat("Speed", moveInput * moveInput);
+        rb.linearVelocity = new Vector2(moveInput.x * speed, rb.linearVelocity.y);
+        animator.SetFloat("Speed", moveInput.x * moveInput.x);
 
         if (tryingJump && isGrounded)
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
 
-        if (moveInput > 0) transform.localScale = new Vector3(1, 1, 1);
-        else if (moveInput < 0) transform.localScale = new Vector3(-1, 1, 1);
+        if (moveInput.x > 0) transform.localScale = new Vector3(1, 1, 1);
+        else if (moveInput.x < 0) transform.localScale = new Vector3(-1, 1, 1);
 
         if (isHolding)
             heldObject.transform.position = Vector2.Lerp(

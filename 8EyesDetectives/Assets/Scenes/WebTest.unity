@@ -119,6 +119,36 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &21611355 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6211030775964300856, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
+  m_PrefabInstance: {fileID: 909898940}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &21611357 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6739632104519600222, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
+  m_PrefabInstance: {fileID: 909898940}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &21611359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 21611355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6b928e14f78a8641a6dc26d9628e53a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AimCursor
+  inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  stickSpeed: 12
+  maxRadius: 8
+  minRadius: 0.5
+  cursorSprite: {fileID: 21611357}
+  onlySpider: 1
+  player: {fileID: 1903967010}
+  playerInput: {fileID: 1903967006}
 --- !u!1 &698961399
 GameObject:
   m_ObjectHideFlags: 0
@@ -274,6 +304,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -1619275999428155393, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
+      propertyPath: m_DefaultActionMap
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: -1619275999428155393, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: Gamepad
+      objectReference: {fileID: 0}
     - target: {fileID: 263392703584977818, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.5433454
@@ -294,6 +332,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.71082395
       objectReference: {fileID: 0}
+    - target: {fileID: 656131291697535661, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
+      propertyPath: aimCursor
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1000961929010013384, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
       propertyPath: m_LocalRotation.w
       value: -0.7766848
@@ -302,6 +344,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.62988955
       objectReference: {fileID: 0}
+    - target: {fileID: 1263822243262295638, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1903967010}
     - target: {fileID: 1884418009716794328, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.7587508
@@ -370,6 +416,10 @@ PrefabInstance:
       propertyPath: groundCheckSize.y
       value: 0.165
       objectReference: {fileID: 0}
+    - target: {fileID: 3064455014942276449, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
+      propertyPath: orthographic size
+      value: 5.8
+      objectReference: {fileID: 0}
     - target: {fileID: 3074857804698239970, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
       propertyPath: m_LocalRotation.w
       value: -0.789925
@@ -409,6 +459,10 @@ PrefabInstance:
     - target: {fileID: 4057068739710017392, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
       propertyPath: m_LocalPosition.y
       value: 1.825168
+      objectReference: {fileID: 0}
+    - target: {fileID: 4057068739710017392, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 4339040266671155349, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
       propertyPath: m_LocalRotation.w
@@ -470,10 +524,14 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.3776367
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1263822243262295638, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6211030775964300856, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 21611359}
   m_SourcePrefab: {fileID: 100100000, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
 --- !u!1 &947897058
 GameObject:
@@ -826,6 +884,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mantis
       objectReference: {fileID: 0}
+    - target: {fileID: 7926158407696332283, guid: d654e7ca47472434f94f06e464ef5dfa, type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: Gamepad
+      objectReference: {fileID: 0}
     - target: {fileID: 8247450238607001832, guid: d654e7ca47472434f94f06e464ef5dfa, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.1141853
@@ -1012,6 +1074,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1903967006 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -1619275999428155393, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
+  m_PrefabInstance: {fileID: 909898940}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
+--- !u!114 &1903967010 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2665345248193730813, guid: 0077636095fe2734286d1c6eb44be129, type: 3}
+  m_PrefabInstance: {fileID: 909898940}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d82cb856cf6b8d54e9f269bef1f2849a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

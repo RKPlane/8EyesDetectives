@@ -5,10 +5,19 @@ using UnityEngine.InputSystem;
 public class WebController : MonoBehaviour
 {
     [Header("Input")]
-    public InputActionAsset inputActions;
+    private Player player;
+
+    [Header("Aim")]
+    [Tooltip("Arrastra aquí el componente AimCursor del hijo cursor.")]
+    public AimCursor aimCursor;
 
     [Header("Web Settings")]
     public LayerMask grappleLayer;
+
+    [Tooltip("Layers que bloquean el disparo (Floor, paredes, etc.). " +
+             "Configura a 'Floor' en el Inspector.")]
+    public LayerMask obstacleLayer;
+
     public float maxDistance = 20f;
     public float stickRadius = 1.5f;
     public float swingForce = 5f;
@@ -18,12 +27,12 @@ public class WebController : MonoBehaviour
     public WebRenderer[] renderers = new WebRenderer[3];
 
     Rigidbody2D rb;
-    InputAction shootAction, detachAction, moveAction;
-    Vector2 moveInput;
+    private float moveInput;
+    private bool shootPressed;
+    private bool detachPressed;
 
     int attachedIndex = -1;
 
-    // FIX
     public bool IsAnyAttached =>
         attachedIndex >= 0 &&
         attachedIndex < ropes.Length &&
@@ -32,34 +41,47 @@ public class WebController : MonoBehaviour
 
     void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        var map = inputActions.FindActionMap("Player");
-        shootAction = map.FindAction("ShootWeb");
-        detachAction = map.FindAction("DetachWeb");
-        moveAction = map.FindAction("Move");
+            rb = GetComponent<Rigidbody2D>();
+            player = GetComponent<Player>();
+
     }
 
-    void OnEnable() => inputActions.Enable();
-    void OnDisable() => inputActions.Disable();
+    public void OnMove(InputValue value)
+    {
+        if (player != null && player.control)
+            moveInput = value.Get<Vector2>().x;
+    }
+
+    public void OnShootWeb(InputValue value)
+    {
+        if (player != null && player.control && value.isPressed)
+            shootPressed = true;
+    }
+
+    public void OnDetachWeb(InputValue value)
+    {
+        if (player != null && player.control && value.isPressed)
+            detachPressed = true;
+    }
 
     void Update()
     {
-        if (Player.instance.control)
+        if (attachedIndex >= 0 &&
+            (ropes[attachedIndex] == null || !ropes[attachedIndex].IsPlayerAttached))
         {
-            moveInput = moveAction.ReadValue<Vector2>();
+            attachedIndex = -1;
+        }
 
-            // Si la rope fue cortada por la mantis, limpia el índice.
-            if (attachedIndex >= 0 &&
-                (ropes[attachedIndex] == null || !ropes[attachedIndex].IsPlayerAttached))
-            {
-                attachedIndex = -1;
-            }
-
-            if (shootAction.WasPressedThisFrame()) TryAttach();
-            if (detachAction.WasPressedThisFrame()) TryDetach();
-        } else
+        if (shootPressed)
         {
-            moveInput = Vector2.zero;
+            shootPressed = false;
+            TryAttach();
+        }
+
+        if (detachPressed)
+        {
+            detachPressed = false;
+            TryDetach();
         }
     }
 
@@ -83,11 +105,38 @@ public class WebController : MonoBehaviour
 
         if (slot < 0) { Debug.Log("[Web] No free slot — all 3 webs exist"); return; }
 
-        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-        Vector2 direction = (mousePos - (Vector2)transform.position).normalized;
+        // Dirección: desde AimCursor si está asignado, si no fallback al ratón
+        Vector2 direction;
+        if (aimCursor != null)
+        {
+            direction = aimCursor.AimDirection;
+        }
+        else
+        {
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            direction = (mousePos - (Vector2)transform.position).normalized;
+        }
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, maxDistance, grappleLayer);
-        if (hit.collider == null) { Debug.Log("[Web] Raycast missed"); return; }
+        // Primero comprobamos si hay un obstáculo (Floor u otros) antes del punto de grapple.
+        // Si el primer hit es un obstáculo y NO es grappleable, bloqueamos el disparo.
+        LayerMask combinedMask = grappleLayer | obstacleLayer;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, maxDistance, combinedMask);
+
+        if (hit.collider == null)
+        {
+            Debug.Log("[Web] Raycast missed");
+            return;
+        }
+
+        // Si lo que se golpea primero está en obstacleLayer pero NO en grappleLayer, bloqueado
+        int hitLayerMask = 1 << hit.collider.gameObject.layer;
+        bool isGrappleable = (hitLayerMask & grappleLayer.value) != 0;
+
+        if (!isGrappleable)
+        {
+            Debug.Log($"[Web] Bloqueado por obstáculo: {hit.collider.gameObject.name}");
+            return;
+        }
 
         ropes[slot].Build(hit.point, rb);
         renderers[slot]?.Enable();
@@ -108,6 +157,6 @@ public class WebController : MonoBehaviour
         if (rope == null || !rope.IsPlayerAttached) return;
         Vector2 toAnchor = (Vector2)transform.position - rope.AnchorPoint;
         Vector2 tangent = Vector2.Perpendicular(toAnchor.normalized);
-        rb.AddForce(tangent * moveInput.x * swingForce);
+        rb.AddForce(tangent * moveInput * swingForce);
     }
 }

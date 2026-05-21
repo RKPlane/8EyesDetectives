@@ -2,12 +2,13 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(PlayerInput))]
 public class Player : MonoBehaviour
 {
     static public Player instance;
-
     public float speed = 5f;
     public float jumpForce = 6f;
+
     private Rigidbody2D rb;
 
     [SerializeField] private Transform groundCheck;
@@ -17,87 +18,83 @@ public class Player : MonoBehaviour
     [Header("Web Reference")]
     public WebController webController;
 
-    [Header("Input")]
-    public InputActionAsset inputActions;
-    private bool tryingJump = false;
-
-    private InputAction moveAction;
-    private InputAction jumpAction;
-	private InputAction resetAction;
-	private float moveInput;
-
-    public bool control = false;
-    public bool bFaceRight;
+    public bool control = true;
     public Animator animator;
+
+    private Vector2 moveInput;
+    private bool tryingJump;
 
     void Awake()
     {
-        instance = this;
         rb = GetComponent<Rigidbody2D>();
-        var map = inputActions.FindActionMap("Player");
-        moveAction = map.FindAction("Move");
-        jumpAction = map.FindAction("SpiderJump");
-        resetAction = map.FindAction("Reset");
-	}
+    }
 
-    void Update()
+    // ACTION: Move
+    public void OnMove(InputValue value)
     {
-        if (control)
+        if (!control) return;
+
+        moveInput = value.Get<Vector2>();
+    }
+
+    // ACTION: SpiderJump
+    public void OnSpiderJump(InputValue value)
+    {
+        if (!control) return;
+
+        tryingJump = value.isPressed;
+    }
+
+    // ACTION: Reset
+    public void OnReset(InputValue value)
+    {
+        if (value.isPressed)
         {
-            moveInput = moveAction.ReadValue<Vector2>().x;
-            tryingJump = jumpAction.IsPressed();
-        } else
-        {
-            //Si el control se quita mientras moveInput tiene un valor, el valor nunca volvería a cero, por eso hace falta esta línea
-            moveInput = 0f;
-            tryingJump = false;
+            RestartCurrentScene();
         }
-
-		if (resetAction.WasPressedThisFrame()) 
-		{
-			RestartCurrentScene();
-		}
-
-	}
+    }
 
     void FixedUpdate()
     {
-        bool isGrounded = Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0f, groundLayer);
+        bool isGrounded = Physics2D.OverlapBox(
+            groundCheck.position,
+            groundCheckSize,
+            0f,
+            groundLayer);
 
-        bool isSwinging = webController != null && webController.IsAnyAttached;
+        bool isSwinging =
+            webController != null &&
+            webController.IsAnyAttached;
 
         animator.SetBool("isJumping", !isGrounded && !isSwinging);
+        animator.SetBool("isHanging", isSwinging);
 
         if (!isSwinging)
         {
-            animator.SetBool("isHanging", false);
+            rb.linearVelocity =
+                new Vector2(moveInput.x * speed, rb.linearVelocity.y);
 
-        } else
-        {
-            animator.SetBool("isHanging", true);
-
-        }
-
-        if (!isSwinging)
-        {
-            rb.linearVelocity = new Vector2(moveInput * speed, rb.linearVelocity.y);
-            animator.SetFloat("Speed", moveInput * moveInput);
+            animator.SetFloat("Speed", moveInput.x * moveInput.x);
         }
 
         if (tryingJump && isGrounded && !isSwinging)
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            rb.linearVelocity =
+                new Vector2(rb.linearVelocity.x, jumpForce);
+
+            tryingJump = false;
         }
 
-        if (moveInput > 0) transform.localScale = new Vector3(1, 1, 1);
-        else if (moveInput < 0) transform.localScale = new Vector3(-1, 1, 1);
+        if (moveInput.x > 0)
+            transform.localScale = new Vector3(1, 1, 1);
+        else if (moveInput.x < 0)
+            transform.localScale = new Vector3(-1, 1, 1);
     }
 
-	public void RestartCurrentScene()
-	{
-		Scene currentScene = SceneManager.GetActiveScene();
-		SceneManager.LoadScene(currentScene.name);
-	}
-
+    public void RestartCurrentScene()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(currentScene.name);
+    }
 }
 
