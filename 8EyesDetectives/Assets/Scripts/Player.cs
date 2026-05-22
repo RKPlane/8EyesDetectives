@@ -89,12 +89,14 @@ public class Player : MonoBehaviour
         }
 
         if (tryingJump && isGrounded && !isSwinging)
-        {
-            rb.linearVelocity =
-                new Vector2(rb.linearVelocity.x, jumpForce);
-
-            tryingJump = false;
-        }
+{
+    rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+    tryingJump = false;
+}
+else if (!isGrounded)
+{
+    tryingJump = false; // discard mid-air press
+}
 
         if (moveInput.x > 0)
             transform.localScale = new Vector3(1, 1, 1);
