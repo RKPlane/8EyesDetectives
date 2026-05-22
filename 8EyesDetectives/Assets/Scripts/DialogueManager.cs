@@ -57,6 +57,7 @@ public class DialogueManager : MonoBehaviour
 
     void Start()
     {
+        letterSpeed = letterSpeed / 4;
         playerSpider = FindFirstObjectByType<Player>();
         playerMantis = FindFirstObjectByType<MantisPlayer>();
     }
@@ -82,7 +83,7 @@ public class DialogueManager : MonoBehaviour
                 AddLetter();
                 letterTimer = 0f;
             }
-        }
+		}
     }
 
     void LateUpdate()
@@ -138,7 +139,7 @@ public class DialogueManager : MonoBehaviour
 
     public void NextLine()
     {
-        currentChar = 0;
+		currentChar = 0;
         currentMsg = string.Empty;
         letterTimer = 0f;
 
