@@ -146,8 +146,13 @@ public class MantisPlayer : MonoBehaviour
         rb.linearVelocity = new Vector2(moveInput.x * speed, rb.linearVelocity.y);
         animator.SetFloat("Speed", moveInput.x * moveInput.x);
 
-        if (tryingJump && isGrounded)
+        if (tryingJump && isGrounded) {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+}
+else if (!isGrounded)
+{
+    tryingJump = false; // discard mid-air press
+}
 
         if (moveInput.x > 0) transform.localScale = new Vector3(1, 1, 1);
         else if (moveInput.x < 0) transform.localScale = new Vector3(-1, 1, 1);
