@@ -6,8 +6,7 @@ public class PlayerDeviceManager : MonoBehaviour
 {
     public static PlayerDeviceManager Instance { get; private set; }
 
-    // Dispositivos asignados permanentemente a cada jugador.
-    // [0] = Player1, [1] = Player2.
+    // [0] = Spider (Player.cs), [1] = Mantis (MantisPlayer.cs)
     readonly InputDevice[] assignedDevices = new InputDevice[2];
 
     void Awake()
@@ -29,7 +28,7 @@ public class PlayerDeviceManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    // ── Asignación inicial ────────────────────────────────────────────────────
+    //Asignacion inicial
 
     void AssignDevicesOnce()
     {
@@ -37,17 +36,15 @@ public class PlayerDeviceManager : MonoBehaviour
 
         if (gamepads.Count >= 2)
         {
-            // Dos mandos conectados: asignación directa por orden de conexión.
             assignedDevices[0] = gamepads[0];
             assignedDevices[1] = gamepads[1];
-            Debug.Log($"[Devices] P1={gamepads[0].displayName}  P2={gamepads[1].displayName}");
+            Debug.Log($"[Devices] Spider={gamepads[0].displayName}  Mantis={gamepads[1].displayName}");
         }
         else if (gamepads.Count == 1)
         {
-            // Solo un mando: P1 lo usa, P2 queda sin dispositivo (teclado/mouse si quieres).
             assignedDevices[0] = gamepads[0];
-            assignedDevices[1] = Keyboard.current; // cambia esto si P2 usa otro esquema
-            Debug.LogWarning("[Devices] Solo 1 mando. P1=Gamepad, P2=Keyboard.");
+            assignedDevices[1] = Keyboard.current;
+            Debug.LogWarning("[Devices] Solo 1 mando. Spider=Gamepad, Mantis=Keyboard.");
         }
         else
         {
@@ -55,57 +52,66 @@ public class PlayerDeviceManager : MonoBehaviour
         }
     }
 
-    // ── Repairing al cargar escena ────────────────────────────────────────────
+    //Validacion entre escenas
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // Pequeño delay para que los PlayerInput ya hayan hecho su Awake.
         StartCoroutine(ReparentDevicesNextFrame());
     }
 
     System.Collections.IEnumerator ReparentDevicesNextFrame()
     {
-        yield return null; // espera un frame a que los jugadores se instancien
+        yield return null;
 
-        var players = FindObjectsByType<PlayerInput>(FindObjectsSortMode.None);
+        //Validacion
+        var spiderInput = FindPlayerInputWithComponent<Player>();
+        var mantisInput = FindPlayerInputWithComponent<MantisPlayer>();
 
-        foreach (var pi in players)
-        {
-            int idx = pi.playerIndex; // 0 = P1, 1 = P2
-            if (idx < 0 || idx >= assignedDevices.Length) continue;
-
-            InputDevice device = assignedDevices[idx];
-            if (device == null) continue;
-
-            // Fuerza el dispositivo correcto, ignorando el pairing automático.
-            pi.SwitchCurrentControlScheme(GetSchemeForDevice(device), device);
-            Debug.Log($"[Devices] {pi.gameObject.name} → {device.displayName}");
-        }
+        ApplyDevice(spiderInput, assignedDevices[0], "Spider");
+        ApplyDevice(mantisInput, assignedDevices[1], "Mantis");
     }
 
-    // ── Helpers ───────────────────────────────────────────────────────────────
+    static void ApplyDevice(PlayerInput pi, InputDevice device, string roleName)
+    {
+        if (pi == null || device == null) return;
+
+        //validacion
+        foreach (var d in pi.devices)
+            if (d == device) return;
+
+        pi.SwitchCurrentControlScheme(GetSchemeForDevice(device), device);
+        Debug.Log($"[Devices] {roleName} ({pi.gameObject.name}) → {device.displayName}");
+    }
+
+    //Helpers
+
+    //Fix
+    static PlayerInput FindPlayerInputWithComponent<T>() where T : Component
+    {
+        var component = Object.FindFirstObjectByType<T>();
+        if (component == null) return null;
+        return component.GetComponentInParent<PlayerInput>()
+            ?? component.GetComponent<PlayerInput>();
+    }
 
     static string GetSchemeForDevice(InputDevice device)
     {
-        // Ajusta los nombres al control scheme de tu InputActionAsset.
         if (device is Gamepad) return "Gamepad";
         if (device is Keyboard) return "Keyboard&Mouse";
         return "Gamepad";
     }
 
-    /// Devuelve el dispositivo asignado a un jugador (útil desde otros scripts).
     public InputDevice GetDevice(int playerIndex)
     {
         if (playerIndex < 0 || playerIndex >= assignedDevices.Length) return null;
         return assignedDevices[playerIndex];
     }
 
-    /// Llamado desde LobbyDevicePicker cuando los jugadores eligen su mando.
-    /// Sobreescribe la asignación automática inicial.
+    //Script
     public void SetDevices(InputDevice p1, InputDevice p2)
     {
         assignedDevices[0] = p1;
         assignedDevices[1] = p2;
-        Debug.Log($"[Devices] Fijados — P1={p1?.displayName}  P2={p2?.displayName}");
+        Debug.Log($"[Devices] Fijados — Spider={p1?.displayName}  Mantis={p2?.displayName}");
     }
-}   
+}

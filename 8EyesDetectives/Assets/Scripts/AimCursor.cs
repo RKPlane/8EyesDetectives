@@ -29,7 +29,17 @@ public class AimCursor : MonoBehaviour
     private Vector2 localCursorPos;
     private bool usingGamepad;
 
-    private Gamepad myGamepad;
+    //fix
+    private Gamepad MyGamepad
+    {
+        get
+        {
+            if (playerInput == null) return null;
+            foreach (var device in playerInput.devices)
+                if (device is Gamepad g) return g;
+            return null;
+        }
+    }
 
     void Awake()
     {
@@ -44,7 +54,7 @@ public class AimCursor : MonoBehaviour
 
         localCursorPos = Vector2.right * minRadius;
 
-        // ❌ SOLO spider tiene cursor
+        //validacion de spider
         if (onlySpider && player != null && player.webController == null)
         {
             enabled = false;
@@ -53,21 +63,7 @@ public class AimCursor : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        // Asignar el gamepad correcto del player
-        if (playerInput != null)
-        {
-            foreach (var device in playerInput.devices)
-            {
-                if (device is Gamepad g)
-                {
-                    myGamepad = g;
-                    break;
-                }
-            }
-        }
-    }
+    // Start()
 
     void Update()
     {
@@ -88,7 +84,9 @@ public class AimCursor : MonoBehaviour
 
     void DetectDevice()
     {
-        if (myGamepad != null && myGamepad.rightStick.magnitude > 0.1f)
+        Gamepad pad = MyGamepad;
+
+        if (pad != null && pad.rightStick.ReadValue().magnitude > 0.1f)
         {
             usingGamepad = true;
             Cursor.visible = false;
@@ -125,9 +123,10 @@ public class AimCursor : MonoBehaviour
 
     void UpdateGamepadCursor()
     {
-        if (myGamepad == null) return;
+        Gamepad pad = MyGamepad;
+        if (pad == null) return;
 
-        Vector2 stick = myGamepad.rightStick.ReadValue();
+        Vector2 stick = pad.rightStick.ReadValue();
 
         float mag = stick.magnitude;
 

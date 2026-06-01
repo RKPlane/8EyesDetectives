@@ -2,20 +2,13 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
-using UnityEngine.InputSystem.Utilities; // quita este using si no usas TextMeshPro
+using UnityEngine.InputSystem.Utilities;
 
-/// <summary>
-/// Pantalla de lobby: cada jugador presiona cualquier botón en su mando
-/// para registrarse. Cuando los dos estén listos, carga la escena de juego.
-///
-/// Coloca este script en la escena de lobby/menú.
-/// El PlayerDeviceManager debe existir (se crea automáticamente si no existe).
-/// </summary>
 public class LobbyDevicePicker : MonoBehaviour
 {
-    [Header("UI (opcional — conecta tus textos de estado)")]
-    public TextMeshProUGUI statusP1;
-    public TextMeshProUGUI statusP2;
+    [Header("UI (opcional)")]
+    public TextMeshProUGUI statusP1;   // Spider
+    public TextMeshProUGUI statusP2;   // Mantis
 
     [Header("Escena a cargar cuando los 2 jugadores estén listos")]
     public string gameSceneName = "Game";
@@ -23,57 +16,57 @@ public class LobbyDevicePicker : MonoBehaviour
     [Header("Tiempo de espera antes de cargar (segundos)")]
     public float countdownSeconds = 2f;
 
-    // Dispositivos confirmados por cada jugador. null = aún no se ha unido.
+    // [0] = Spider, [1] = Mantis
     readonly InputDevice[] pickedDevices = new InputDevice[2];
+
     bool loading;
 
     void OnEnable()
     {
-        // Escucha cualquier acción en cualquier dispositivo.
         InputSystem.onAnyButtonPress.CallOnce(OnButtonPressed);
     }
 
-    // Se llama cada vez que alguien pulsa un botón en cualquier dispositivo.
     void OnButtonPressed(InputControl control)
     {
         if (loading) return;
 
         InputDevice device = control.device;
 
-        // Ignorar teclado/mouse si solo quieres mandos — borra este bloque si no.
+        // Solo mandos
         if (device is not Gamepad)
         {
             InputSystem.onAnyButtonPress.CallOnce(OnButtonPressed);
             return;
         }
 
-        // Ignorar si este dispositivo ya está asignado.
+        //VALIDACION SI SPAM
         if (device == pickedDevices[0] || device == pickedDevices[1])
         {
             InputSystem.onAnyButtonPress.CallOnce(OnButtonPressed);
             return;
         }
 
-        // Asignar al primer slot libre.
+        //PRIMER PLAYER Y SEGUNDO PLAYER ASIGNAR
         for (int i = 0; i < pickedDevices.Length; i++)
         {
             if (pickedDevices[i] == null)
             {
                 pickedDevices[i] = device;
-                UpdateUI(i, device.displayName);
-                Debug.Log($"[Lobby] Player {i + 1} → {device.displayName}");
+                string roleName = i == 0 ? "Spider" : "Mantis";
+                UpdateUI(i, device.displayName, roleName);
+                Debug.Log($"[Lobby] {roleName} → {device.displayName}");
                 break;
             }
         }
 
-        // Si los dos jugadores ya eligieron, arrancar.
+        //START
         if (pickedDevices[0] != null && pickedDevices[1] != null)
         {
             StartCoroutine(CommitAndLoad());
             return;
         }
 
-        // Seguir escuchando hasta que el segundo jugador se una.
+        //VALIDACION AL OTRO PLAYER
         InputSystem.onAnyButtonPress.CallOnce(OnButtonPressed);
     }
 
@@ -81,27 +74,28 @@ public class LobbyDevicePicker : MonoBehaviour
     {
         loading = true;
 
-        // Asegurarse de que el singleton existe.
+        //Validacion
         if (PlayerDeviceManager.Instance == null)
         {
             var go = new GameObject("PlayerDeviceManager");
             go.AddComponent<PlayerDeviceManager>();
         }
 
-        // Guardar la elección en el singleton para que persista.
+        // Guardar: [0]=Spider, [1]=Mantis.
         PlayerDeviceManager.Instance.SetDevices(pickedDevices[0], pickedDevices[1]);
 
-        if (statusP1 != null) statusP1.text = "¡Listo!";
-        if (statusP2 != null) statusP2.text = "¡Listo!";
+        if (statusP1 != null) statusP1.text = "Spider: ¡Listo!";
+        if (statusP2 != null) statusP2.text = "Mantis: ¡Listo!";
 
         yield return new WaitForSeconds(countdownSeconds);
+
         UnityEngine.SceneManagement.SceneManager.LoadScene(gameSceneName);
     }
 
-    void UpdateUI(int playerIndex, string deviceName)
+    void UpdateUI(int slotIndex, string deviceName, string roleName)
     {
-        TextMeshProUGUI label = playerIndex == 0 ? statusP1 : statusP2;
+        TextMeshProUGUI label = slotIndex == 0 ? statusP1 : statusP2;
         if (label != null)
-            label.text = $"Player {playerIndex + 1}: {deviceName}\nPresiona de nuevo para confirmar";
+            label.text = $"{roleName}: {deviceName}";
     }
 }
